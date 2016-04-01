@@ -137,24 +137,34 @@ public class P03ColorFrame extends JFrame {
 		 *            end color, should be at right
 		 */
 		private void drawColors(Graphics g, int dimX, int dimY, Color startColor, Color endColor) {
-			// TODO Apenas fazer c�digo aqui, dentro deste m�todo
-
-			// As cores devem ir de red, green e blue da cor inicial e terminar
-			// com o red, green e blue da cor final. Portanto dem ir variando de
-			// uma para a outra.
-
-			// ...
-
-			Color auxColor = new Color(startColor.getRed(), startColor.getGreen(), startColor.getBlue());
-			g.setColor(auxColor);
-			g.drawLine(0, 0, dimX, dimY);
-
-			// for (...) {
-			// g.setColor(currentColor);
-			// g.drawLine(...);
-
-			// System.out.println(iNewRed + " " + iNewGreen + " " + iNewBlue);
-
+			int[] delta = new int[] {
+					endColor.getRed() - startColor.getRed(),
+					endColor.getGreen() - startColor.getGreen(),
+					endColor.getBlue() - startColor.getBlue()
+			};
+			
+			double[] step = new double[] {
+					(double) delta[0] / dimY,
+					(double) delta[1] / dimY,
+					(double) delta[2] / dimY
+			};
+			
+			double[] currentPixel = new double[] {
+					startColor.getRed(),
+					startColor.getGreen(),
+					startColor.getBlue()
+			};
+			
+			for(int line = 1; line <= dimY; line++) {
+				currentPixel[0] += step[0];
+				currentPixel[1] += step[1];				
+				currentPixel[2] += step[2];
+				
+				g.setColor(new Color((int)currentPixel[0], (int)currentPixel[1], (int)currentPixel[2]));
+				g.drawLine(0, line, 255, line);
+				
+				System.out.printf("{%d} %d %d %d\n", line, (int)currentPixel[0], (int)currentPixel[1], (int)currentPixel[2]);
+			}
 		}
 	}
 
