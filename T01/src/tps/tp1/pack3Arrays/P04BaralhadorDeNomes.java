@@ -3,62 +3,60 @@ package tps.tp1.pack3Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-/*
-depois deve-se obter o primeiro nome de cada nome; obter o último nome de cada nome; obter um nome qualquer do meio de cada um dos nomes (excluindo o
-primeiro e o último) mas que tenha pelo menos 4 caracteres; gerar tantos novos nomes quantos os que
-foram introduzidos com um primeiro nome, um nome do meio e um nome final, dos já obtidos,
-escolhidos de forma aleatória mas sem repetições (sem mais repetições do que as que já existiam pela
-introdução de nomes repetidos); e mostrar os novos nomes na consola. De String só pode utilizar, caso
-queira, os métodos charAt(int), length(), indexOf(...), trim() e subString(...), pode utilizar também a
-classe Scanner.
- */
 public class P04BaralhadorDeNomes {
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-
-		String[] names = new String[0];
+		String[] names = new String[0];	
 		String input = new String();
-		
+
 		while(names.length < 10) {
 			input = scanner.nextLine();
 			
-			if(input.compareTo("fim") == 0 && names.length >= 5) {
-				break;
+			if(input.compareTo("fim") == 0) {
+				if(names.length >= 5) {
+					break;
+				}
+				else {
+					System.out.printf("Not enough names!\n");
+					continue;
+				}
 			}
 					
-			if(checkNameLength(input) && checkThreeNames(input) && checkMinCharInName(input)) {
+			if(checkNameLength(input) && splitName(input, ' ').length > 3 && checkMinCharInName(input)) {
 				names = pushToArray(names, input);
-			} else {
-				System.out.println("Invalid name!");
+			} 
+			else {
+				System.out.printf("Invalid name!\n");
 			}
-			
 		}
+		
+		System.out.printf("[x] Entered names:\n");
 		
 		for(int i = 0; i < names.length; i++) {
 			System.out.printf("[%d] %s\n", i, names[i]);
-			String[] nameArray = splitName(names[i]);
-			System.out.println();
+			String[] nameArray = splitName(names[i], ' ');
 		}
+		
+		System.out.printf("\n[x] Generated names:\n");
 	
-		/*
 		String[] shuffledNames = shuffleNames(names);
 		
-		for(int i = 0; i < names.length; i++) {
-			System.out.printf("[%d] %s\n", i, names[i]);
-		}*/
+		for(int i = 0; i < shuffledNames.length; i++) {
+			System.out.printf("[%d] %s\n", i, shuffledNames[i]);
+		}
 	}
 	
-	public static String[] splitName(String name) {
+	public static String[] splitName(String name, char chr) {
 		String[] nameArray = new String[0];
 		
 		int first = 0;
-		int last = name.indexOf(" ");
+		int last = name.indexOf(chr);
 		
 		while(last != -1) {
 			nameArray = pushToArray(nameArray, name.substring(first, last));
-			first = name.indexOf(" ", last);
-			last = name.indexOf(" ", ++first);
+			first = name.indexOf(chr, last);
+			last = name.indexOf(chr, ++first);
 		}
 		
 		nameArray = pushToArray(nameArray, name.substring(first, name.length()));
@@ -94,7 +92,7 @@ public class P04BaralhadorDeNomes {
 		String[] newNames = new String[names.length];
 		
 		for(int i = 0; i < names.length; i++) {
-			newNames[i] = splitName(names[i])[0];
+			newNames[i] = splitName(names[i], ' ')[0];
 		}
 		
 		return newNames;
@@ -104,7 +102,7 @@ public class P04BaralhadorDeNomes {
 		String[] newNames = new String[names.length];
 		
 		for(int i = 0; i < names.length; i++) {
-			String[] name = splitName(names[i]);
+			String[] name = splitName(names[i], ' ');
 			newNames[i] = name[name.length - 1];
 		}
 		
@@ -115,11 +113,11 @@ public class P04BaralhadorDeNomes {
 		String[] newNames = new String[names.length];
 		
 		for(int i = 0; i < names.length; i++) {
-			String[] name = splitName(names[i]);
+			String[] name = splitName(names[i], ' ');
 					
 			newNames[i] = names[i].substring(
-					name[i].indexOf(name[0]),
-					name[i].indexOf(name[name.length - 1])
+					names[i].indexOf(name[0]) + name[0].length() + 1,
+					names[i].indexOf(name[name.length - 1]) - 1
 					);
 		}
 		
@@ -127,14 +125,14 @@ public class P04BaralhadorDeNomes {
 	}
 	
 	public static String[] shuffleNames(String[] names) {
-		String[] newNames = new String[names.length];
+		String[] newNames = new String[0];
 		
-		for(int i = 0; i < newNames.length; i++) {
-			String[] randomName;
+		for(int i = 0; i < names.length; i++) {
 			String[] newName = new String[3];
+			String[] randomName;
 			
 			do {
-				randomName = splitName(names[randomNumber(0, names.length - 1)]);
+				randomName = splitName(names[randomNumber(0, names.length - 1)], ' ');
 				
 			} while(nameAlreadyExistsInArray(getAllFirstNames(newNames), getAllFirstNames(names), randomName[0]));
 			
@@ -143,7 +141,7 @@ public class P04BaralhadorDeNomes {
 			int middleIdx;
 			
 			do {
-				randomName = splitName(names[randomNumber(0, names.length - 1)]);
+				randomName = splitName(names[randomNumber(0, names.length - 1)], ' ');
 				middleIdx = randomNumber(1, randomName.length - 2);
 
 			} while(nameAlreadyExistsInArray(getAllMiddleNames(newNames), getAllMiddleNames(names), randomName[middleIdx]));
@@ -151,7 +149,7 @@ public class P04BaralhadorDeNomes {
 			newName[1] = randomName[middleIdx];
 			
 			do {
-				randomName = splitName(names[randomNumber(0, names.length - 1)]);
+				randomName = splitName(names[randomNumber(0, names.length - 1)], ' ');
 
 			} while(nameAlreadyExistsInArray(getAllLastNames(newNames), getAllLastNames(names), randomName[randomName.length - 1]));
 			
@@ -163,17 +161,38 @@ public class P04BaralhadorDeNomes {
 		return newNames;
 	}
 
-	private static boolean nameAlreadyExistsInArray(String[] newAllNames, String[] allNames, String name) {
-		for(int i = 0; i < allNames.length; i++) {
-			String[] checkName = new String[0];
+	private static boolean nameAlreadyExistsInArray(String[] newAllNames, String[] allNames, String name) {		
+		int allNamesCounter = 0;
+		int newAllNamesCounter = 0;
+		
+		
+		for (int i = 0; i < allNames.length; i++) {
+			String[] nameSplit = splitName(allNames[i], ' ');
 			
+			for (int j = 0; j < nameSplit.length; j++) {
+				if(nameSplit[j].compareTo(name) == 0) {
+					++allNamesCounter;
+				}
+			}
 		}
 		
-		return false;
+		for (int i = 0; i < newAllNames.length; i++) {
+			String[] nameSplit = splitName(newAllNames[i], ' ');
+			
+			for (int j = 0; j < nameSplit.length; j++) {
+				if(nameSplit[j].compareTo(name) == 0) {
+					++newAllNamesCounter;
+				}
+			}
+		}
+		
+		
+		
+		return allNamesCounter == newAllNamesCounter;
 	}
 
 	public static boolean checkMinCharInName(String name) {
-		String[] names = name.split(" ");
+		String[] names = splitName(name, ' ');
 		
 		for(int i = 0; i < names.length; i++) {
 			if(names[i].length() < 4) {
