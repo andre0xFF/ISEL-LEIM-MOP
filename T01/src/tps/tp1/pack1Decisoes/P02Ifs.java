@@ -20,43 +20,43 @@ public class P02Ifs {
 	}
 	
 	public static int[] QuickSort(int[] vector) {
-	      QuickSort(vector, 0, vector.length - 1);
-	      
-	      return vector;
-	   }
+      QuickSort(vector, 0, vector.length - 1);
+      
+      return vector;
+   }
 
-	   private static int[] QuickSort(int[] vector, int high, int low) {
-	      if (high < low) {
-	         int pivot = split(vector, high, low);
-	         QuickSort(vector, high, pivot - 1);
-	         QuickSort(vector, pivot + 1, low);
-	      }
-	      
-	      return vector;
-	   }
+   private static int[] QuickSort(int[] vector, int high, int low) {
+      if (high < low) {
+         int pivot = split(vector, high, low);
+         QuickSort(vector, high, pivot - 1);
+         QuickSort(vector, pivot + 1, low);
+      }
+      
+      return vector;
+   }
 
-	   private static int split(int[] vector, int high, int end) {
-	      int pivot = vector[high];
-	      int i = high + 1;
-	      int f = end;
-	      
-	      while (i <= f) {
-	         if (vector[i] <= pivot) {
-	            i++;
-	         } else if (pivot < vector[f]) {
-	            f--;
-	         } else {
-	            int troca = vector[i];
-	            vector[i] = vector[f];
-	            vector[f] = troca;
-	            i++;
-	            f--;
-	         }
-	      }
-	      
-	      vector[high] = vector[f];
-	      vector[f] = pivot;
-	      
-	      return f;
-	   }
+   private static int split(int[] vector, int high, int end) {
+      int pivot = vector[high];
+      int i = high + 1;
+      int f = end;
+      
+      while (i <= f) {
+         if (vector[i] <= pivot) {
+            i++;
+         } else if (pivot < vector[f]) {
+            f--;
+         } else {
+            int troca = vector[i];
+            vector[i] = vector[f];
+            vector[f] = troca;
+            i++;
+            f--;
+         }
+      }
+      
+      vector[high] = vector[f];
+      vector[f] = pivot;
+      
+      return f;
+   }
 }

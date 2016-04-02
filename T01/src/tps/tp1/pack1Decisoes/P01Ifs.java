@@ -21,7 +21,6 @@ public class P01Ifs {
 		}
 		else
 			System.out.println("Number is bigger then 20");
-
 	}
 
 }

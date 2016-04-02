@@ -186,8 +186,6 @@ public class P04BaralhadorDeNomes {
 			}
 		}
 		
-		
-		
 		return allNamesCounter == newAllNamesCounter;
 	}
 

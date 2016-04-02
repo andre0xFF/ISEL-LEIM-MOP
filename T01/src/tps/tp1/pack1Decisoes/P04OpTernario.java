@@ -12,25 +12,24 @@ public class P04OpTernario {
 		System.out.printf("Element? \n");
 		String input = scanner.nextLine();
 		
-		try {
-			
-			int j = getElementIndex(input, ELEMENTS) + 1 % ELEMENTS.length;		
-			
+		int j = getElementIndex(input, ELEMENTS) + 1 % ELEMENTS.length;	
+		
+		if(j != -1) {
 			System.out.println(input + " generates " + ELEMENTS[(j == ELEMENTS.length) ? 0 : j]);
-			
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		}
+		else {
+			System.out.println("Element not found");
 		}
 	}
 	
-	private static int getElementIndex(String element, String[] elements) throws Exception {
+	private static int getElementIndex(String element, String[] elements) {
 		for(int i = 0; i < elements.length; i++) {
 			if(element.compareToIgnoreCase(elements[i]) == 0) {
 				return i;
 			}
 		}
 		
-		throw new Exception("Element not found");
+		return -1;
 	}
 
 }

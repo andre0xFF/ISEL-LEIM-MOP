@@ -6,7 +6,6 @@ public class P01ArrayIntsInit {
 	public static void main(String[] args) {
 		int[] numbers = new int[10];
 
-		
 		for(int i = 0; i < numbers.length; i++) {
 			numbers[i] = randomNumber(10, 50);
 		}
@@ -20,8 +19,6 @@ public class P01ArrayIntsInit {
 		int[] addEvenNumbers = addToEvenNumbers(numbers, higherOddNumber);
 		
 		System.out.println(arrayToString(numbers));
-		
-		
 	}
 	
 	public static String arrayToString(int[] numbers) {
@@ -31,10 +28,7 @@ public class P01ArrayIntsInit {
 			msg += " " + numbers[i] + " ";
 		}
 		
-		msg += "]\n";
-		
-		
-		return msg;
+		return msg + "]\n";
 	}
 	
 	public static int[] addToEvenNumbers(int[] numbers, int addNumber) {
@@ -62,5 +56,4 @@ public class P01ArrayIntsInit {
 	public static int randomNumber(int min, int max) {
 		return new Random().nextInt(max - min + 1) + min;
 	}
-	
 }

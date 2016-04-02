@@ -43,10 +43,8 @@ public class P02ArrayIntsAddMirror {
 		for(int i = 0; i < numbers.length; i++) {
 			msg += " " + numbers[i] + " ";
 		}
-		
-		msg += "]\n";
-		
-		return msg;
+
+		return msg + "]\n";
 	}
 
 }

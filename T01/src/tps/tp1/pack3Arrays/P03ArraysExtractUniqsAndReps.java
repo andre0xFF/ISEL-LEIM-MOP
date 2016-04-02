@@ -3,7 +3,7 @@ package tps.tp1.pack3Arrays;
 import java.util.Random;
 
 public class P03ArraysExtractUniqsAndReps {
-
+	
 	public static void main(String[] args) {
 		int[] arr1 = new int[10];
 		int[] arr2 = new int[10];
@@ -13,14 +13,12 @@ public class P03ArraysExtractUniqsAndReps {
 			
 			do {
 				n = randomNumber(0, 20);
-				
 			} while(checkNumberInArray(arr1, n));
 			
 			arr1[i] = n;
 			
 			do {
 				n = randomNumber(0, 20);
-				
 			} while(checkNumberInArray(arr2, n));
 			
 			arr2[i] = n;
@@ -70,7 +68,6 @@ public class P03ArraysExtractUniqsAndReps {
 		newArr[newArr.length - 1] = number;
 		
 		return newArr;
-
 	}
 
 	public static String arrayToString(int[] numbers) {
@@ -80,10 +77,7 @@ public class P03ArraysExtractUniqsAndReps {
 			msg += " " + numbers[i] + " ";
 		}
 		
-		msg += "]\n";
-		
-		
-		return msg;
+		return msg + "]\n";
 	}
 	
 	public static boolean checkNumberInArray(int[] arr, int number) {
@@ -113,5 +107,4 @@ public class P03ArraysExtractUniqsAndReps {
 	public static int randomNumber(int min, int max) {
 		return new Random().nextInt(max - min + 1) + min;
 	}
-
 }
