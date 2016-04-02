@@ -5,6 +5,7 @@
 
 .metadata
 bin/
+doc/
 tmp/
 *.tmp
 *.bak

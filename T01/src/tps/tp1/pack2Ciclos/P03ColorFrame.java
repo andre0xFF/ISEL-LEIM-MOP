@@ -15,8 +15,9 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 /**
- * Classe que � a frame onde tud ocorre 
- *
+ * A classe P02Triangulo corresponde ao 3o exercicio do capitulo de Ciclos da serie de
+ * exercicios. Esta classe foi previamente fornecida para a realizacao do exercicio.<p>
+ * @author Andre Fonseca
  */
 public class P03ColorFrame extends JFrame {
 	private static final long serialVersionUID = -330888082383077655L;
@@ -25,9 +26,6 @@ public class P03ColorFrame extends JFrame {
 	private JButton bnColorStart;
 	private JButton bnColorEnd;
 
-	/**
-	 * Method that creates the frame
-	 */
 	protected void init() {
 		setTitle("...: ColorFrame :...");
 		setSize(400, 300);
@@ -90,9 +88,6 @@ public class P03ColorFrame extends JFrame {
 		setVisible(true);
 	}
 
-	/**
-	 * Main method - the execution starts here
-	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -102,9 +97,6 @@ public class P03ColorFrame extends JFrame {
 		});
 	}
 
-	/**
-	 * Auxiliary class that extends JLabel
-	 */
 	class MyLabel extends JLabel {
 		private static final long serialVersionUID = -4402584053051810107L;
 
@@ -120,23 +112,28 @@ public class P03ColorFrame extends JFrame {
 		}
 
 		/**
-		 * Should draw all the drawing area with lines with color varying from
-		 * StartColor to EndColor. To change the drawing color use:
-		 * Graphics.setColor(Color newColor). To draw a line use:
-		 * Graphics.drawLine(int x1, int y1, int x2, int y2)
+		 * Desenha linhas em toda a area de desenho inicialmente com a cor inicial e
+		 * progressivamente alterando-se para a cor final.<p>
+		 * Inicialmente e' calculado a diferenca de RGB entre a cor inicial e a cor
+		 * final. O incremento e' calculado com base nessa diferenca e a dimensao da
+		 * area de desenho.<p>
+		 * Para desenhar a area de desenho completa e' feito um ciclo que ira percorrer
+		 * todas as linhas da area de desenho, iniciando-se com a cor inicial que sera
+		 * incrementada linha a linha com o salto calculado ate chegar ao final da
+		 * area de desenho com a cor final.
 		 * 
 		 * @param g
 		 *            the graphics where we should draw the lines
 		 * @param dimX
-		 *            x dimension of drawing area
+		 *            Dimensao x da area de desenho
 		 * @param dimY
-		 *            y dimension of drawing area
+		 *            Dimensao y da area de desenho
 		 * @param startColor
-		 *            start color, should be at left
+		 *            Cor inicial
 		 * @param endColor
-		 *            end color, should be at right
+		 *            Cor final
 		 */
-		private void drawColors(Graphics g, int dimX, int dimY, Color startColor, Color endColor) {
+		protected void drawColors(Graphics g, int dimX, int dimY, Color startColor, Color endColor) {
 			int[] delta = new int[] {
 					endColor.getRed() - startColor.getRed(),
 					endColor.getGreen() - startColor.getGreen(),

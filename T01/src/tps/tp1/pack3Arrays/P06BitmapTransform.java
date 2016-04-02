@@ -11,20 +11,16 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 /**
- * Apply reduce by half on an image
+ * A classe P06BitmapTransform corresponde ao 6o exercicio do capitulo de Arrays da serie de
+ * exercicios. Esta classe foi fornecida previamente de forma a realizar o exercicio.
+ * <p>
+ * Pretende-se que uma determinada imagem seja redimensionada para metade do seu tamanho
+ * atraves da media RGB entre pixeis.
  * 
- * @author ateofilo
- * 
+ * @author Andre Fonseca
  */
 public class P06BitmapTransform {
 
-	/**
-	 * Method that copies the image, could apply some pixel transformation
-	 * 
-	 * @param image
-	 *            the image to be copied and / or transformed
-	 * @return a new image
-	 */
 	public static BufferedImage copyImage(BufferedImage image) {
 		BufferedImage newImage = null;
 		newImage = new BufferedImage(image.getWidth(), image.getHeight(),
@@ -50,10 +46,15 @@ public class P06BitmapTransform {
 	}
 
 	/**
+	 * Reduz o tamanho de uma imagem para metade atraves da media RGB entre pixeis.
+	 * A reducao da imagem e' realizada percorrendo os pixeis da nova imagem a ser gerada,
+	 * em que cada pixel ira conter a media da respectiva componente RGB de um conjunto
+	 * de pixeis da imagem original.
 	 * 
-	 * TODO Method to be done. It contains some code that have to be changed
-	 * 
-	 * @return a new reduced by half image
+	 * @param image
+	 * 				Imagem a ser reduzida
+	 * @return
+	 * 				Imagem reduzida
 	 */
 	public static BufferedImage reduceImage(BufferedImage image) {
 		int factor = 2;
@@ -91,10 +92,6 @@ public class P06BitmapTransform {
 		return newImage;
 	}
 
-	/**
-	 * show original image
-	 * 
-	 */
 	public static void showOriginalImageTask() throws IOException {
 		// read the image to memory
 		BufferedImage image = ImageIO.read(
@@ -104,10 +101,6 @@ public class P06BitmapTransform {
 		buildFrameForImage(image);
 	}
 
-	/**
-	 * show image with some transformation
-	 * 
-	 */
 	public static void transformTask() throws IOException {
 		// read the image to memory
 		BufferedImage image = ImageIO.read(
@@ -120,10 +113,6 @@ public class P06BitmapTransform {
 		buildFrameForImage(newImage);
 	}
 
-	/**
-	 * reduce image to a new image with size reduce by half
-	 * 
-	 */
 	public static void reduceTask() throws IOException {
 		// read the image to memory
 		BufferedImage image = ImageIO.read(
@@ -136,9 +125,6 @@ public class P06BitmapTransform {
 		buildFrameForImage(newImage);
 	}
 
-	/**
-	 * Method that shows one image in a new frame
-	 */
 	public static void buildFrameForImage(BufferedImage image)
 			throws IOException {
 		// the frame
@@ -163,57 +149,30 @@ public class P06BitmapTransform {
 		frame.setVisible(true);
 	}
 
-	/**
-	 * method that gets the blue value from a RGB pixel value
-	 */
 	static int getRGBBlue(int rgb) {
 		return (rgb) & 0xFF;
 	}
 
-	/**
-	 * method that gets the green value from a RGB pixel value
-	 */
 	static int getRGBGreen(int rgb) {
 		return (rgb >> 8) & 0xFF;
 	}
 
-	/**
-	 * method that gets the red value from a RGB pixel value
-	 */
 	static int getRGBRed(int rgb) {
 		return (rgb >> 16) & 0xFF;
 	}
 
-	/**
-	 * method that set the blue value to a RGB pixel value
-	 * 
-	 * @return the new pixel RGB value
-	 */
 	static int setRGBBlue(int rgb, int blue) {
 		return (rgb & 0xFFFFFF00) | (blue & 0xFF);
 	}
 
-	/**
-	 * method that sets the green value to a RGB pixel value
-	 * 
-	 * @return the new pixel RGB value
-	 */
 	static int setRGBGreen(int rgb, int green) {
 		return (rgb & 0xFFFF00FF) | ((green & 0xFF) << 8);
 	}
 
-	/**
-	 * method that sets the red value to a RGB pixel value
-	 * 
-	 * @return the new pixel RGB value
-	 */
 	static int setRGBRed(int rgb, int red) {
 		return ((red & 0xFF) << 16) | rgb & 0xFF00FFFF;
 	}
 
-	/**
-	 * Main method - execution entry point
-	 */
 	public static void main(String[] args) {
 
 		SwingUtilities.invokeLater(new Runnable() {
