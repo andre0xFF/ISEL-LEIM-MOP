@@ -19,30 +19,28 @@ public class P02Histograma {
 
                 if (values[i] < 0 || values[i] > 20) {
                     invalid_number = true;
+                    continue;
+                }
+
+                if (values[i] > max) {
+                    max = values[i];
                 }
             }
         } while(invalid_number);
 
-//        String[] histogram = new String[values.length];
-
-//        for (int i = 0; i < values.length; i++) {
-//            histogram[i] = "";
-//
-//            for (int j = 0; j < values[i]; j++) {
-//                histogram[i] += "#";
-//            }
-//
-//            if (histogram[i].length() > max) {
-//                max = histogram[i].length();
-//            }
-//        }
 
         for (int i = max; i > 0; i--) {
-            for (int j = 0; j < values.length; i++) {
-                if (j <= values[j]) {
+            System.out.printf(String.valueOf(i) + " ");
 
+            for (int j = 0; j < values.length; j++) {
+                if (values[j] >= i) {
+                    System.out.printf("# ");
+                }
+                else {
+                    System.out.printf("  ");
                 }
             }
+            System.out.printf("\n");
         }
     }
 }
