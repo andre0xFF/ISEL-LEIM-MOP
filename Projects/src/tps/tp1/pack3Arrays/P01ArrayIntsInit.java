@@ -1,31 +1,15 @@
 package tps.tp1.pack3Arrays;
 
+import java.util.Arrays;
+
 public class P01ArrayIntsInit {
 
     public static void main(String[] agrs) {
         int[] numbers = new int[] { 0, 1, 2, 3, 5, 6, 7, 8, 9 };
 
-        System.out.println("Numbers: " + print_array(numbers));
+        System.out.println("Numbers: " + Arrays.toString(numbers));
         System.out.println("Max even number: " + max_even_number(numbers));
-        System.out.println("Numbers modified: " + print_array(modify_array(numbers)));
-    }
-
-    /**
-     * Constroi uma string com os valores de um array de numeros inteiros.
-     *
-     * @param array
-     * 				Array de numeros
-     * @return
-     * 				String com a representacao dos numeros no array
-     */
-    public static String print_array(int[] array) {
-        String msg = "[";
-
-        for(int i = 0; i < array.length; i++) {
-            msg += " " + array[i] + " ";
-        }
-
-        return msg + "]";
+        System.out.println("Numbers modified: " + Arrays.toString(modify_array(numbers)));
     }
 
     /**

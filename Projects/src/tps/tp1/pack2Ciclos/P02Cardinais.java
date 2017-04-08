@@ -36,7 +36,7 @@ public class P02Cardinais {
         draw_row(number_1);
     }
 
-    public static void draw_row(int n) {
+    protected static void draw_row(int n) {
         for (int i = 0; i < n; i++) {
             System.out.printf("#");
         }
