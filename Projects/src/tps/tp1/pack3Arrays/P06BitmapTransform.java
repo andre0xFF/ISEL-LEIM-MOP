@@ -11,16 +11,16 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 /**
- * Esta classe visa aplicar várias transformadas ao pixel a uma imagem, gerando
+ * Esta classe visa aplicar vï¿½rias transformadas ao pixel a uma imagem, gerando
  * uma nova imagem
  * 
  * @author ateofilo
  * 
  */
 public class P06BitmapTransform {
-	public static String IMAGEPATH = "images/image1.jpg";
-	// public static String IMAGEPATH = "images/image2.jpg";
-	// public static String IMAGEPATH = "images/image3.jpg";
+//	public static String IMAGEPATH = "images/image1.jpg";
+	 public static String IMAGEPATH = "images/image2.jpg";
+//	 public static String IMAGEPATH = "images/image3.jpg";
 
 	/**
 	 * Method that copies the image
@@ -63,10 +63,10 @@ public class P06BitmapTransform {
 				int pixelRGB = image.getRGB(x, y);
 				int newPixelColor = pixelRGB;
 
-				// TODO testar com uma só linha activada, entre as seguintes
-				newPixelColor = pixelRGB & 0xFF; // azul no máximo
-				// newPixelColor = pixelRGB & 0xFF00; // verde no máximo
-				// newPixelColor = pixelRGB & 0xFF0000; // vermelho no máximo
+				// TODO testar com uma sï¿½ linha activada, entre as seguintes
+				newPixelColor = pixelRGB & 0xFF; // azul no mï¿½ximo
+				// newPixelColor = pixelRGB & 0xFF00; // verde no mï¿½ximo
+				// newPixelColor = pixelRGB & 0xFF0000; // vermelho no mï¿½ximo
 
 				newImage.setRGB(x, y, newPixelColor);
 			}
@@ -106,10 +106,22 @@ public class P06BitmapTransform {
 	 */
 	public static BufferedImage quadrantTransform(BufferedImage image) {
 
-		// TODO you should work here
+		int quadrant_height = image.getHeight() / 2;
+		int quadrant_width = image.getWidth() / 2;
+		BufferedImage new_image = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
 
-		BufferedImage newImage = image;
-		return newImage;
+		for (int line = 0; line < quadrant_height; line++) {
+			for (int column = 0; column < quadrant_width; column++) {
+				int pixel = image.getRGB(column, line);
+
+				new_image.setRGB(quadrant_width - column, quadrant_height - line, pixel);
+				new_image.setRGB(quadrant_width - column, quadrant_height + line, pixel);
+				new_image.setRGB(quadrant_width + column, quadrant_height - line, pixel);
+				new_image.setRGB(quadrant_width + column, quadrant_height + line, pixel);
+			}
+		}
+
+		return new_image;
 	}
 
 	/**
