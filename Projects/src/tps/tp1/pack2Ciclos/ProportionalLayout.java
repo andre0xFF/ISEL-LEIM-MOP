@@ -7,13 +7,13 @@ import java.awt.Insets;
 import java.awt.LayoutManager2;
 
 /**
- * Proportional layout - é como um border Layout mas com proporções. Por
- * exemplo: a parte north tem 20% de extensão vertical... Os componentes são
- * então colocados de acordo com a proporcionalidade indicada. Este layout
- * considera os insets do container e pode adicionar seus insets que são
+ * Proportional layout - E' como um border Layout mas com proporcoes. Por
+ * exemplo: a parte north tem 20% de extensao vertical... Os componentes sao
+ * entao colocados de acordo com a proporcionalidade indicada. Este layout
+ * considera os insets do container e pode adicionar seus insets que sao
  * proporcionais. Considera hgap e vgap, como pixels or proporcionais
  * 
- * By: António Teófilo, em desenvolvimento
+ * By: Antonio Teofilo
  */
 
 public class ProportionalLayout implements LayoutManager2 {
@@ -125,8 +125,8 @@ public class ProportionalLayout implements LayoutManager2 {
 	 * 
 	 * @param insets
 	 *            e zonesets Pode variar de 0.0f a 1.0f, e significa o rebordo a
-	 *            utilizar. 1.0f é relativo a metade da dimensão da frame.
-	 *            ALTERADO PARA 1.0f CORRESPONDE A 100% DA DIMENSÂO DA FRAME
+	 *            utilizar. 1.0f e' relativo a metade da dimensao da frame.
+	 *            ALTERADO PARA 1.0f CORRESPONDE A 100% DA DIMENSAO DA FRAME
 	 */
 	public void setInsets(float insets) {
 		setInsets(insets, insets, insets, insets);

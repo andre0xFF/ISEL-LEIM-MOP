@@ -1,6 +1,5 @@
 package tps.tp1.pack3Arrays;
 
-
 import java.util.Arrays;
 import java.util.Random;
 

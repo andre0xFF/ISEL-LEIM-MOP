@@ -5,19 +5,14 @@ import java.util.Scanner;
 
 /**
  * A classe P03OpTernario corresponde ao 3o exercicio do capitulo de Decisoes da serie de
- * exercicios. A classe ira gerar um elemento com base num elemento introduzido pelo
- * utilizador.<p>
+ * exercicios. Um objecto desta classe ira gerar um elemento com base num outro elemento
+ * introduzido pelo utilizador. Neste caso uma ligacao circular aerea entre as cidades
+ * de Lisboa, Santander, Barcelona e Malaga.
+ * <p>
  * @author Andre Fonseca
  */
 public class P03OpTernario {
-    /**
-     * Ao ser fornecido o nome de um elemento pelo utilizador e' obtido o seu indice correspondente a
-     * sua posicao no array de elementos e somando-lhe mais 1 ao qual e' obtido o resto da divisao
-     * com o numero total de elementos.<p>
-     * De maneira a criar um incremento circular o indice do elemento gerado e' reposto a 0 sempre que
-     * este corresponda ao numero total de elementos, situacao realizada por uma
-     * <i>conditional expression</i>.
-     */
+
     public static void main(String[] args) {
         /**
          * Array de elementos que guarda todos os elementos possiveis.

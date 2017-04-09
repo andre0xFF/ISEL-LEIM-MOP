@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
  * A classe P04BaralhadorDeNomes corresponde ao 4o exercicio do capitulo de Arrays da serie de
  * exercicios. Esta classe gera nomes aleatorios, tantos quantos introduzidos, cada nome com
- * o respectivo primeiro, ultimo e nomes do meio recorrendo aos nomes previamente introduzidos
+ * o respectivo primeiro, ultimo recorrendo aos nomes previamente introduzidos
  * pelo utilizador sem mais repeticoes do que o numero de vezes ja introduzidos pelo utilizador.
  * <p>
  *
@@ -193,7 +193,7 @@ public class P04BaralhadorDeNomes {
 
     /**
      * Gera um array de nomes com base num array de nomes fornecidos sem que haja repeticoes
-     * de primeiro, ultimo e nomes do meio.
+     * de primeiro, ultimo.
      * O metodo inicia-se com um ciclo que ira gerar o mesmo numero de nomes quanto os
      * recebidos em que sao verificadas as repeticoes no novo array e no array recebido,
      * caso haja alguma repeticao e' entao gerado um novo nome.
@@ -202,7 +202,6 @@ public class P04BaralhadorDeNomes {
      * 				Array de nomes
      * @return
      * 				Array de nomes gerados aleatoriamente sem repeticoes de primeiro, ultimo
-     * 				e nomes do meio
      */
     private static String[] shuffleNames(String[] names) {
         String[] newNames = new String[0];

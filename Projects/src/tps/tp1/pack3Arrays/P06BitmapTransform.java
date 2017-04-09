@@ -11,7 +11,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 /**
- * Esta classe visa aplicar v�rias transformadas ao pixel a uma imagem, gerando
+ * Esta classe visa aplicar varias transformadas ao pixel a uma imagem, gerando
  * uma nova imagem
  * 
  * @author ateofilo
@@ -63,10 +63,10 @@ public class P06BitmapTransform {
 				int pixelRGB = image.getRGB(x, y);
 				int newPixelColor = pixelRGB;
 
-				// TODO testar com uma s� linha activada, entre as seguintes
-				newPixelColor = pixelRGB & 0xFF; // azul no m�ximo
-				// newPixelColor = pixelRGB & 0xFF00; // verde no m�ximo
-				// newPixelColor = pixelRGB & 0xFF0000; // vermelho no m�ximo
+				// TODO testar com uma so linha activada, entre as seguintes
+				newPixelColor = pixelRGB & 0xFF; // azul no maximo
+				// newPixelColor = pixelRGB & 0xFF00; // verde no maximo
+				// newPixelColor = pixelRGB & 0xFF0000; // vermelho no maximo
 
 				newImage.setRGB(x, y, newPixelColor);
 			}
@@ -98,11 +98,13 @@ public class P06BitmapTransform {
 	}
 
 	/**
-	 * Method that should do the quadrant transformation
+	 * Aplica a transformacao em que o canto superior esquerdo da imagem
+	 * e' invertido para o centro e aplicado em todos os quadradantes da imagem.
 	 * 
 	 * @param image
 	 *            the image to be transform
-	 * @return the new image
+	 * @return
+	 * 			the new image
 	 */
 	public static BufferedImage quadrantTransform(BufferedImage image) {
 

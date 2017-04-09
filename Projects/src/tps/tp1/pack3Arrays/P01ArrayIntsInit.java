@@ -2,6 +2,13 @@ package tps.tp1.pack3Arrays;
 
 import java.util.Arrays;
 
+/**
+ * A classe P01ArrayIntsInit corresponde ao 1o exercicio do capitulo de Arrays da serie de
+ * exercicios. Um objecto desta classe mostra um conjunto de caracteres '#' com base
+ * nos dois limites introduzidos pelo utilizador.
+ * <p>
+ * @author Andre Fonseca
+ */
 public class P01ArrayIntsInit {
 
     public static void main(String[] agrs) {
@@ -13,12 +20,12 @@ public class P01ArrayIntsInit {
     }
 
     /**
-     * Determina o numero impar mais alto presente num array.
+     * Determina o numero par mais alto presente num array.
      *
      * @param numbers
      * 					Array de numeros
      * @return
-     * 					Numero mais alto presente num array
+     * 					Maior numero par presente no array
      */
     public static int max_even_number(int[] numbers) {
         int max = 0;
@@ -32,6 +39,15 @@ public class P01ArrayIntsInit {
         return max;
     }
 
+    /**
+     * Modifica um array de inteiros no qual a todos os numeros multiplos de 3
+     * e'-lhes sumado o proximo numero par caso exista.
+     * @param numbers
+     *                  Array de numeros inteiros
+     * @return
+     *                  Array de numeros inteiros onde cada multiplo de 3
+     *                  foi-lhe somado o proximo numero par
+     */
     public static int[] modify_array(int[] numbers) {
 
         int[] aux = new int[numbers.length];

@@ -2,6 +2,13 @@ package tps.tp1.pack3Arrays;
 
 import java.util.Scanner;
 
+/**
+ * A classe P02Histograma corresponde ao 2o exercicio do capitulo de Arrays da serie de
+ * exercicios. Um objecto desta classe produz um histograma em forma de caracteres
+ * '#'.
+ * <p>
+ * @author Andre Fonseca
+ */
 public class P02Histograma {
 
     public static void main(String[] args) {
@@ -11,7 +18,7 @@ public class P02Histograma {
         int max = 0;
 
         do {
-            System.out.printf("Insert histogram values: ");
+            System.out.printf("Insert histogram values (10 numbers): ");
             String[] input = scanner.nextLine().split(" ");
 
             for (int i = 0; i < input.length; i++) {

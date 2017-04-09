@@ -2,6 +2,13 @@ package tps.tp1.pack2Ciclos;
 
 import java.util.Scanner;
 
+/**
+ * A classe P02Cardinais corresponde ao 2o exercicio do capitulo de Ciclos da serie de
+ * exercicios. Um objecto desta classe mostra um conjunto de caracteres '#' com base
+ * nos dois limites introduzidos pelo utilizador.
+ * <p>
+ * @author Andre Fonseca
+ */
 public class P02Cardinais {
 
     public static void main(String[] args) {
@@ -11,7 +18,7 @@ public class P02Cardinais {
         int number_2;
 
         do {
-            System.out.println("Numbers (>= 0)?");
+            System.out.println("Two numbers (>= 0)?");
             String[] input = scanner.nextLine().split(" ");
 
             number_1 = Integer.parseInt(input[0]);

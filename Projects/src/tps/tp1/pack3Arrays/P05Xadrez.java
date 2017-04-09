@@ -3,6 +3,13 @@ package tps.tp1.pack3Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * A classe P05Xadrez corresponde ao 5o exercicio do capitulo de Arrays da serie de
+ * exercicios. Um objecto desta classe calcula e mostra os resultados de um tabuleiro
+ * de xadrez nos quais nao existe ataques possiveis entre N * 3 / 4 Rainhas.
+ * <p>
+ * @author Andre Fonseca
+ */
 public class P05Xadrez {
 
     private static final int SIZE = 8;
@@ -22,6 +29,10 @@ public class P05Xadrez {
         } while(scanner.nextLine().equals(""));
     }
 
+    /**
+     * Mostra o tabuleiro de xadrez em forma de texto
+     * @param board
+     */
     private static void print_solution(int[][] board) {
         System.out.printf("Board:\n\n");
 
@@ -36,6 +47,18 @@ public class P05Xadrez {
         System.out.printf("\n");
     }
 
+    /**
+     * Verifica se uma determinada possicao no tabuleiro de xadrez esta livre
+     * de ataques de outras rainhas.
+     * @param board
+     *          Tabuleiro de xadrez
+     * @param row
+     *          Linha da posicao
+     * @param column
+     *          Coluna da posicao
+     * @return
+     *          True caso seja possivel posicionar uma rainha na posicao
+     */
     private static boolean is_safe(int[][] board, int row, int column) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
@@ -52,6 +75,9 @@ public class P05Xadrez {
         return true;
     }
 
+    /**
+     * Inicia o tabuleiro de xadrez
+     */
     private static void start() {
         board =  new int[SIZE][SIZE];
 
@@ -69,6 +95,10 @@ public class P05Xadrez {
         solve(board);
     }
 
+    /**
+     * Inicia o calculo das posicoes das rainhas no tabuleiro de xadrez
+     * @param board
+     */
     private static void solve(int[][] board) {
         for (int j = 0; j < TOTAL_QUEENS; j++) {
             int line;

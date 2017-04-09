@@ -15,8 +15,9 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 /**
- * Classe que � a frame onde tud ocorre
- *
+ * A classe P03ColorFrame corresponde ao 3o exercicio do capitulo de Ciclos da serie de
+ * exercicios. Um objecto desta classe mostra uma figura triangular com a variacao
+ * progresiva entre duas cores escolhidas.
  */
 public class P03ColorFrame extends JFrame {
 	private static final long serialVersionUID = -330888082383077655L;

@@ -2,6 +2,13 @@ package tps.tp1.pack1Decisoes;
 
 import java.util.Scanner;
 
+/**
+ * A classe P04Switch corresponde ao 4o exercicio do capitulo de Decisoes da serie de
+ * exercicios. Um objecto desta classe determina qual o nome e a estacao do ano de
+ * um determinado mes introduzido pelo utilizador.
+ * <p>
+ * @author Andre Fonseca
+ */
 public class P04Switch {
 
     protected static String[] ELEMENTS = { "Fire", "Earth", "Metal", "Water", "Wood" };
@@ -69,7 +76,7 @@ public class P04Switch {
                 return;
         }
 
-        System.out.println("The month number " + input + " is " + month + " and is " + season);
+        System.out.printf("The month number %d is %s and is %s", input, month, season);
     }
 
 
