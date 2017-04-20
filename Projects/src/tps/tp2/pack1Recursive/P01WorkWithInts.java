@@ -1,12 +1,12 @@
 package tps.tp2.pack1Recursive;
 
 /**
- * Classe para conter exercícios recursivos com inteiros
+ * Classe para conter exercicios recursivos com inteiros
  */
 public class P01WorkWithInts {
 
 	/**
-	 * Main, método de arranque da execução
+	 * Main, metodo de arranque da execucao
 	 */
 	public static void main(String[] args) {
 
@@ -17,7 +17,7 @@ public class P01WorkWithInts {
 		test_removeZeros(10); // result = 1
 		test_removeZeros(101); // result = 11
 		test_removeZeros(10050); // result = 15
-		test_removeZeros(-30100); // result = -301
+		test_removeZeros(-30100); // result = -31
 		System.out.println();
 
 		// ====================================================
@@ -25,21 +25,54 @@ public class P01WorkWithInts {
 		test_intToString(0); // result = 0 (String)
 		test_intToString(12); // result = 12 (String)
 		test_intToString(123); // result = 123 (String)
-		test_intToString(-19); // Erro: o nº recebido tem de ser positivo: -19
+		test_intToString(-19); // Erro: o numero recebido tem de ser positivo: -19
 		System.out.println();
 	}
 
 	/**
-	 * Recebe um inteiro e deve devolvê-lo, mas com os dígitos zero removidos.
-	 * No caso de receber zero deverá devolver esse mesmo valor
+	 * Recebe um inteiro e deve devolve-lo, mas com os digitos zero removidos.
+	 * No caso de receber zero devera devolver esse mesmo valor
 	 * 
 	 * @param n
-	 *            o nº a processar
-	 * @return o nº sem digitos zero
+	 *            o numero a processar
+	 * @return o numero sem digitos zero
 	 */
 	private static int removeZeros(int n) {
-		// TODO falta fazer
-		return 0;
+		String number = String.valueOf(n);
+		char[] digits = number.toCharArray();
+		char[] new_digits;
+		boolean negative = false;
+		int factor = digits[0] == '-' ? -1 : 0;
+
+		n = Integer.valueOf(String.valueOf(digits[0 + Math.abs(factor)]));
+		new_digits = new char[digits.length - 1 + factor];
+		number = "";
+
+		for (int i = 1 + Math.abs(factor); i < digits.length; i++) {
+			new_digits[i - 1 + factor] = digits[i];
+		}
+
+		int u = 0;
+
+		if (new_digits.length > 1) {
+			u = removeZeros(Integer.valueOf(String.valueOf(new_digits)));
+		}
+
+		if (n != 0) {
+			number = number.concat(String.valueOf(n));
+		}
+
+		if (u != 0) {
+			number = number.concat(String.valueOf(u));
+		}
+
+		if (number.equals("")) {
+			return 0;
+		}
+
+		n = Integer.parseInt(number);
+
+		return factor == -1 ? -1 * n : n;
 	}
 
 	/**
@@ -58,23 +91,34 @@ public class P01WorkWithInts {
 	}
 
 	/**
-	 * Este método recebe um inteiro positivo e deve devolver uma String com os
-	 * seus dígitos. Para tal deve trabalhar dígito a dígito e utilizar
-	 * String.valueOf(int) com inteiros só com um dígito. Em caso de input
-	 * inválido, deve lançar a exceção IllegalArgumentException com a indicação
+	 * Este metodo recebe um inteiro positivo e deve devolver uma String com os
+	 * seus digitos. Para tal deve trabalhar digito a digito e utilizar
+	 * String.valueOf(int) com inteiros so com um digito. Em caso de input
+	 * invalido, deve lancar a excecao IllegalArgumentException com a indicacao
 	 * clara do erro.
 	 * 
 	 * @param n
 	 * @return
 	 */
 	private static String intToString(int n) {
-		if (n < 0)
-			throw new IllegalArgumentException("o nº recebido tem de ser positivo: " + n);
+		if (n < 0) {
+			throw new IllegalArgumentException("o numero recebido tem de ser positivo: " + n);
+		}
 
-		// TODO falta fazer
+		String number = String.valueOf(n);
+		String string = number.substring(0, 1);
+		String u = "";
 
-		return null;
+		if (number.length() > 1) {
+			n = Integer.parseInt(number.substring(1));
+			u = intToString(n);
+		}
 
+		if (u != "") {
+			string = string.concat(u);
+		}
+
+		return string;
 	}
 
 	/**
