@@ -38,40 +38,57 @@ public class P01WorkWithInts {
 	 * @return o numero sem digitos zero
 	 */
 	private static int removeZeros(int n) {
+		// convert @param n to array of char with digits
 		String number = String.valueOf(n);
 		char[] digits = number.toCharArray();
+
+		// new digits to be passed recursively
 		char[] new_digits;
-		boolean negative = false;
+
+		// positive / negative factor of the @param n
 		int factor = digits[0] == '-' ? -1 : 0;
 
+		// turn @param n to the first digit
+		// (except left side signal - factor)
 		n = Integer.valueOf(String.valueOf(digits[0 + Math.abs(factor)]));
+
+		// initialize new digits array with thr proper size
 		new_digits = new char[digits.length - 1 + factor];
+
 		number = "";
 
+		// copy char array without the first digit
 		for (int i = 1 + Math.abs(factor); i < digits.length; i++) {
 			new_digits[i - 1 + factor] = digits[i];
 		}
 
+		// will store the value returned by the recursion
 		int u = 0;
 
+		// if there are more than one digit than run again
 		if (new_digits.length > 1) {
 			u = removeZeros(Integer.valueOf(String.valueOf(new_digits)));
 		}
 
+		// the first digit removed from @param n is different from 0
 		if (n != 0) {
 			number = number.concat(String.valueOf(n));
 		}
 
+		// if something was returned from the recursion
 		if (u != 0) {
 			number = number.concat(String.valueOf(u));
 		}
 
+		// if number is empty than nothing was returned from the recursion
 		if (number.equals("")) {
 			return 0;
 		}
 
+		// parse back to int
 		n = Integer.parseInt(number);
 
+		// was the number negative? than turn it negative
 		return factor == -1 ? -1 * n : n;
 	}
 
@@ -101,19 +118,28 @@ public class P01WorkWithInts {
 	 * @return
 	 */
 	private static String intToString(int n) {
+		// @param n can't be negative
 		if (n < 0) {
 			throw new IllegalArgumentException("o numero recebido tem de ser positivo: " + n);
 		}
 
+		// convert @param n to string
 		String number = String.valueOf(n);
+
+		// get and remove the 1st digit
 		String string = number.substring(0, 1);
+
+		// return value of the recursion
 		String u = "";
 
+		// the number has multiple digits
+		// go into recursion
 		if (number.length() > 1) {
 			n = Integer.parseInt(number.substring(1));
 			u = intToString(n);
 		}
 
+		// if something was returned by the recursion concat it
 		if (u != "") {
 			string = string.concat(u);
 		}
