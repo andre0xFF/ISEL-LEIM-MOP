@@ -7,13 +7,13 @@ package tps.tp2.pack2Percursos;
 public class PercursoSimples {
 
 	/**
-	 * nome do percurso, deve conter só letras, digitos e espaços, deve começar
-	 * por uma letra e ter pelo menos mais uma letra ou dígito
+	 * nome do percurso, deve conter so letras, digitos e espacos, deve comecar
+	 * por uma letra e ter pelo menos mais uma letra ou digito
 	 */
 	private String nome;
 
 	/**
-	 * Nome do ponto de início do percurso
+	 * Nome do ponto de inicio do percurso
 	 */
 	private String inicio;
 
@@ -23,26 +23,26 @@ public class PercursoSimples {
 	private String fim;
 
 	/**
-	 * Distância em metros do percurso
+	 * Distancia em metros do percurso
 	 */
 	private int distancia;
 
 	/**
-	 * Declive em metros, positivo, se fim mais alto que início
+	 * Declive em metros, positivo, se fim mais alto que inicio
 	 */
 	private int declive;
 
 	/**
-	 * Deve validar o nome, inicio e fim com o método de validação
-	 * validarNomeDelocal. A distância tem de ser positiva (maior que 0). Em
-	 * caso de argumentos inválidos deve ser lançada a excepção
+	 * Deve validar o nome, inicio e fim com o metodo de validacao
+	 * validarNomeDelocal. A distancia tem de ser positiva (maior que 0). Em
+	 * caso de argumentos invalidos deve ser lancada a excepcao
 	 * IllegalArgumentException com uma mensagem a indicar o erro ocorrido e o
-	 * argumento inválido.
+	 * argumento invalido.
 	 * 
 	 * @param nome
 	 *            Nome do percurso
 	 * @param inicio
-	 *            Local do início do percurso
+	 *            Local do inicio do percurso
 	 * @param fim
 	 *            Local de im do percurso
 	 * @param distancia
@@ -51,42 +51,73 @@ public class PercursoSimples {
 	 *            Declive do percurso
 	 */
 	public PercursoSimples(String nome, String inicio, String fim, int distancia, int declive) {
+		if (!PercursoSimples.validarNomeDeLocal(nome)) {
+			throw new IllegalArgumentException("Invalid location name");
+		}
 
-		// TODO
+		if (!PercursoSimples.validarNomeDeLocal(inicio)) {
+			throw new IllegalArgumentException("Invalid path start name");
+		}
+
+		if (!PercursoSimples.validarNomeDeLocal(fim)) {
+			throw new IllegalArgumentException("Invalid path end name");
+		}
+
+		if (distancia < 1) {
+			throw new IllegalArgumentException("Invalid distance");
+		}
+
+		this.nome = nome;
+		this.inicio = inicio;
+		this.fim = fim;
+		this.distancia = distancia;
+		this.declive = declive;
 	}
 
 	/**
-	 * Construtor de cópia, deve copiar os valores do percurso recebido para o
+	 * Construtor de copia, deve copiar os valores do percurso recebido para o
 	 * novo percurso.
 	 * 
 	 * @param p
 	 *            O percurso a copiar
 	 */
 	public PercursoSimples(PercursoSimples p) {
-		// TODO
+		this(
+				p.getNome(),
+				p.getInicio(),
+				p.getFim(),
+				p.getDistancia(),
+				p.getDeclive()
+		);
+	}
+
+	protected boolean validate(PercursoSimples p) {
+		return this.fim.equalsIgnoreCase(p.getInicio());
 	}
 
 	/**
-	 * Deve criar uma cópia do percurso recebido
+	 * Deve criar uma copia do percurso recebido
 	 * 
-	 * @return O novo percurso idêntico ao corrente
+	 * @return O novo percurso identico ao corrente
 	 */
 	public PercursoSimples clone() {
-		// TODO
-		return null;
+		return new PercursoSimples(this);
 	}
 
 	/**
-	 * Deve validar se contém só letras, digitos e espaços, deve começar por uma
-	 * letra e ter pelo menos mais uma letra ou dígito
+	 * Deve validar se contem so letras, digitos e espacos, deve comecar por uma
+	 * letra e ter pelo menos mais uma letra ou digito
 	 * 
 	 * @param nome
 	 *            Nome a validar
-	 * @return True se o nome for válido
+	 * @return True se o nome for valido
 	 */
 	private static boolean validarNomeDeLocal(String nome) {
-		// TODO
-		return false;
+		if (nome.trim().length() == 0) {
+			return false;
+		}
+
+		return nome.matches("^[0-9A-Za-z\\s]+$");
 	}
 
 	/**
@@ -95,18 +126,16 @@ public class PercursoSimples {
 	 * @return O nome do percurso
 	 */
 	public String getNome() {
-		// TODO
-		return null;
+		return this.nome;
 	}
 
 	/**
-	 * Devolve o local de início do percurso
+	 * Devolve o local de inicio do percurso
 	 * 
-	 * @return O local de início do percurso
+	 * @return O local de inicio do percurso
 	 */
 	public String getInicio() {
-		// TODO
-		return null;
+		return this.inicio;
 	}
 
 	/**
@@ -115,18 +144,16 @@ public class PercursoSimples {
 	 * @return O local de fim do percurso
 	 */
 	public String getFim() {
-		// TODO
-		return null;
+		return this.fim;
 	}
 
 	/**
-	 * Devolve a distância do percurso
+	 * Devolve a distancia do percurso
 	 * 
-	 * @return a distância do percurso
+	 * @return a distancia do percurso
 	 */
 	public int getDistancia() {
-		// TODO
-		return 0;
+		return this.distancia;
 	}
 
 	/**
@@ -135,8 +162,7 @@ public class PercursoSimples {
 	 * @return O declive do percurso
 	 */
 	public int getDeclive() {
-		// TODO
-		return 0;
+		return this.declive;
 	}
 
 	/**
@@ -146,37 +172,46 @@ public class PercursoSimples {
 	 * @return A string que descreve o percurso
 	 */
 	public String toString() {
-		// TODO
-		return null;
+		return String.format(
+				"%s de %s para %s, com %d metros e com %d de declive",
+				this.nome,
+				this.inicio,
+				this.fim,
+				this.distancia,
+				this.declive
+		);
 	}
 
 	/**
 	 * Equals, deve devolver true se o percurso recebido tem o mesmo nome, o
-	 * mesmo início e o mesmo fim.
+	 * mesmo inicio e o mesmo fim.
 	 * 
 	 * @param percurso
 	 *            Percurso a comparar
-	 * @return True se o percurso corrente for igual, por nome, início e fim com
+	 * @return True se o percurso corrente for igual, por nome, inicio e fim com
 	 *         o percurso recebido
 	 */
 	public boolean equals(PercursoSimples percurso) {
-		// TODO
-		return false;
+		return (
+				percurso.getNome().equalsIgnoreCase(this.nome)
+				&& percurso.getInicio().equalsIgnoreCase(this.inicio)
+				&& percurso.getFim().equalsIgnoreCase(this.fim)
+		);
 	}
 
 	/**
-	 * Print, deve imprimir na consola o prefixo seguido da informação que se
-	 * obtém com o toString
+	 * Print, deve imprimir na consola o prefixo seguido da informacao que se
+	 * obtem com o toString
 	 * 
 	 * @param prefix
-	 *            Prefixo a colocar antes da informação do toString
+	 *            Prefixo a colocar antes da informacao do toString
 	 */
 	public void print(String prefix) {
-		// TODO
+		System.out.printf("%s %s\n", prefix, this.toString());
 	}
 
 	/**
-	 * Main, para realizar testes aos métodos
+	 * Main, para realizar testes aos metodos
 	 * 
 	 * @param args
 	 *            Argumentos do main
@@ -196,10 +231,3 @@ public class PercursoSimples {
 	}
 
 }
-
-/*- outputs esperado
- * ps1 -> A2 de Lisboa para Faro, com 278000 metros e com 0 de declive 
- * ps2 -> A1 de Lisboa para Porto, com 317000 metros e com 0 de declive
- * ps1.equals(ps2) -> false 
- * ps1 toString -> A2 de Lisboa para Faro, com 278000 metros e com 0 de declive
- */
