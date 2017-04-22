@@ -1,82 +1,85 @@
 package tps.tp2.pack3PercursosComPercursos;
 
-import java.util.Arrays;
+import tps.tp2.Path;
+import tps.tp2.pack2Percursos.PercursoSimples;
 
 /**
- * Classe que suporta um percurso composto por vários percursos simples ou
- * compostos. A classe tem de ter pelo menos um percurso. Não admite localidades
- * repetidas. Os nomes das localidades são case-sensitive.Os percursos têm de
- * estar em sequência, ou seja, onde termina o percurso de índice 0 tem de ser
- * onde se inicia o percurso de índice 1 e assim sucessivamente ... Num percurso
- * composto considera-se que os seus percursos compostos estão em sequência
+ * Classe que suporta um percurso composto por varios percursos simples ou
+ * compostos. A classe tem de ter pelo menos um percurso. Nao admite localidades
+ * repetidas. Os nomes das localidades sao case-sensitive. Os percursos teem de
+ * estar em sequencia, ou seja, onde termina o percurso de indice 0 tem de ser
+ * onde se inicia o percurso de indice 1 e assim sucessivamente ... Num percurso
+ * composto considera-se que os seus percursos compostos estao em sequencia
  * (depois) de todos os percursos simples.
  */
-public class PercursoComposto {
+public class PercursoComposto implements Path{
+
+	private int maxPercursos;
 
 	/**
-	 * Nome do percurso, deve respeitar a regra de validação dos nomes em
+	 * Nome do percurso, deve respeitar a regra de validacao dos nomes em
 	 * percurso simples
 	 */
 	private String nome;
 
 	/**
 	 * Array com os percursos simples. Os elementos devem ser colocados nos
-	 * índices menores.
+	 * indices menores.
 	 */
 	private PercursoSimples[] percursosSimples;
 
 	/**
-	 * Nº de percursos simples
+	 * Numero de percursos simples
 	 */
 	private int nPercursosSimples;
 
 	/**
 	 * Array com os percursos compostos. Os elementos devem ser colocados nos
-	 * índices menores.
+	 * indices menores.
 	 */
 	private PercursoComposto[] percursosCompostos;
 
 	/**
-	 * Nº de percursos compostos
+	 * Numero de percursos compostos
 	 */
 	private int nPercursosCompostos;
 
 	/**
-	 * Constructor que recebe apenas um percurso simples, além do nome e do nº
-	 * máximo de percursos. Sugestão: chamar outro construtor.
+	 * Constructor que recebe apenas um percurso simples, alem do nome e do numero
+	 * maximo de percursos. Sugestao: chamar outro construtor.
 	 * 
 	 * @param nome
 	 *            Nome do percurso simples
 	 * @param percursoSimples
 	 *            Percurso a guardar
 	 * @param maxPercursos
-	 *            Nº máximo de percursos a suportar
+	 *            Numero maximo de percursos a suportar
 	 */
 	public PercursoComposto(String nome, PercursoSimples percursoSimples,
 			int maxPercursos) {
-		// TODO
+		this(nome, new PercursoSimples[] { percursoSimples }, maxPercursos);
 	}
 
 	/**
-	 * Constructor que recebe apenas um percurso composto, além do nome e do nº
-	 * máximo de percursos. Sugestão: chamar outro construtor.
+	 * Constructor que recebe apenas um percurso composto, alem do nome e do numero
+	 * mï¿½ximo de percursos. Sugestao: chamar outro construtor.
 	 * 
 	 * @param nome
 	 *            Nome do percurso composto
 	 * @param percursoComposto
 	 *            Percurso composto a guardar
 	 * @param maxPercursos
-	 *            Nº máximo de percursos a suportar
+	 *            Numero maximo de percursos a suportar
 	 */
 	public PercursoComposto(String nome, PercursoComposto percursoComposto,
 			int maxPercursos) {
-		// TODO
+		this(nome, new PercursoComposto[] { percursoComposto }, maxPercursos);
 	}
 
 	/**
-	 * Constructor que recebe um array percursos simples, além do nome e do nº
-	 * máximo de percursos. O array não pode ter nulls, os seus percursos têm de
-	 * estar em sequência e não pode haver repetições de localidades. Sugestão:
+	 * Constructor que recebe um array percursos simples, alem do nome e do numero
+	 * maximo de percursos. O array nao pode ter nulls, os seus percursos teem de
+	 * estar em sequencia e nao pode haver repeticoes de localidades. Sugestao:
 	 * chamar outro construtor.
 	 * 
 	 * @param nome
@@ -84,119 +87,149 @@ public class PercursoComposto {
 	 * @param percursosSimples
 	 *            Percursos a guardar
 	 * @param maxPercursos
-	 *            Nº máximo de percursos a suportar
+	 *            Nï¿½ mï¿½ximo de percursos a suportar
 	 */
 	public PercursoComposto(String nome, PercursoSimples[] percursosSimples,
 			int maxPercursos) {
-		// TODO
+		this(nome, percursosSimples, new PercursoComposto[] { }, maxPercursos);
 	}
 
 	/**
-	 * Constructor que recebe um array percursos compostos, além do nome e do nº
-	 * máximo de percursos. O array não pode ter nulls, os seus percursos têm de
-	 * estar em sequência e não pode haver repetições de localidades.
-	 * Considera-se que os percursos compostos recebidos, em si, estão bem
-	 * formados. Sugestão: chamar outro construtor.
+	 * Constructor que recebe um array percursos compostos, alem do nome e do numero
+	 * maximo de percursos. O array nao pode ter nulls, os seus percursos tï¿½m de
+	 * estar em sequencia e nao pode haver repeticoes de localidades.
+	 * Considera-se que os percursos compostos recebidos, em si, estao bem
+	 * formados. Sugestao: chamar outro construtor.
 	 * 
 	 * @param nome
 	 *            Nome do percurso composto
 	 * @param percursosCompostos
 	 *            Percursos compostos a guardar
 	 * @param maxPercursos
-	 *            Nº máximo de percursos a suportar
+	 *            Numero maximo de percursos a suportar
 	 */
 	public PercursoComposto(String nome, PercursoComposto[] percursosCompostos,
 			int maxPercursos) {
-		// TODO
+		this(nome, new PercursoSimples[] { }, percursosCompostos, maxPercursos);
 	}
 
 	/**
 	 * Constructor que recebe um array percursos simples e um array de percursos
-	 * compostos, além do nome e do nº máximo de percursos. Os array têm de ter
+	 * compostos, alem do nome e do numero maximo de percursos. Os array teem de ter
 	 * no conjunto pelo menos um percurso simples. Os percursos simples
-	 * recenidos no array consideram-se como ficanado antes dos percursos
-	 * compostos recebidos no array e têm de estar em sequência e não pode haver
-	 * repetições de localidades sob nenhuma forma. Considera-se que os
-	 * percursos compostos recebidos, em si, estão bem formados. Sugestão:
-	 * chamar os métodos de adicionar no final.
+	 * recebidos no array consideram-se como ficanado antes dos percursos
+	 * compostos recebidos no array e teem de estar em sequencia e nao pode haver
+	 * repeticoes de localidades sob nenhuma forma. Considera-se que os
+	 * percursos compostos recebidos, em si, estao bem formados. Sugestao:
+	 * chamar os metodos de adicionar no final.
 	 * 
 	 * @param nome
-	 *            Nome do percurso composto, deve ser validado pelo método em
+	 *            Nome do percurso composto, deve ser validado pelo metodo em
 	 *            percurso simples
 	 * @param percursosSimples
 	 *            Percursos simples a guardar
 	 * @param percursosCompostos
 	 *            Percursos compostos a guardar
 	 * @param maxPercursos
-	 *            Nº máximo de percursos a suportar
+	 *            Numero maximo de percursos a suportar
 	 */
 	public PercursoComposto(String nome, PercursoSimples[] percursosSimples,
 			PercursoComposto[] percursosCompostos, int maxPercursos) {
-		// TODO
+		this.nome = nome;
+		this.percursosSimples = percursosSimples;
+		this.percursosCompostos = percursosCompostos;
+		this.maxPercursos = maxPercursos;
 	}
 
 	/**
-	 * Copy constructor, deve criar uma cópia profunda do percurso recebido.
+	 * Copy constructor, deve criar uma copia profunda do percurso recebido.
 	 * 
 	 * @param pc
 	 *            Percurso a copiar
 	 */
 	public PercursoComposto(PercursoComposto pc) {
-		// TODO
+		this(
+				pc.getNome(),
+				pc.percursosSimples,
+				pc.percursosCompostos,
+				pc.maxPercursos
+		);
 	}
 
 	/**
-	 * Deve criar uma cópia profunda do percurso corrente
+	 * Cria uma copia profunda do percurso corrente
 	 * 
-	 * @return O percurso composto que é uma cópia profunda do percurso composto
+	 * @return O percurso composto que e' uma copia profunda do percurso composto
 	 *         corrente
 	 */
 	public PercursoComposto clone() {
-		// TODO
-		return null;
+		return new PercursoComposto(
+				this.nome,
+				this.percursosSimples,
+				this.percursosCompostos,
+				this.maxPercursos
+		);
 	}
 
 	/**
 	 * Deve adicionar o percurso simples no final, desde que este esteja em
-	 * sequência e haja espaço. Não pode adicionar se já existirem percursos
-	 * compostos ou se a nova localidade já existir. Sugestão: utilizar os
-	 * métodos de getLocalidades e haveRepetições.
+	 * sequencia e haja espaco. Nao pode adicionar se ja existirem percursos
+	 * compostos ou se a nova localidade ja existir. Sugestao: utilizar os
+	 * metodos de getLocalidades e haveRepeticoes.
 	 * 
 	 * @param percurso
 	 *            Percurso simples a adicionar
 	 * @return True se adicionou
 	 */
-	public boolean addicionarPercursoSimplesNoFinal(PercursoSimples percurso) {
-		// TODO
-		return false;
+	public boolean adicionarPercursoSimplesNoFinal(PercursoSimples percurso) {
+	    if (this.percursosSimples.length > 0) {
+	        return false;
+        }
+
+        try {
+            this.percursosSimples = (PercursoSimples[]) Path.insert(this.percursosSimples, this.maxPercursos, -1, percurso);
+            return true;
+        }
+        catch(IllegalArgumentException e) {
+            return false;
+        }
 	}
 
 	/**
 	 * Deve adicionar o percurso composto no final, desde que este esteja em
-	 * sequência e haja espaço. Não pode adicionar as novas localidades já
-	 * existirem. Sugestão: utilizar os métodos de getLocalidades e
-	 * haveRepetições.
+	 * sequencia e haja espaco. Nao pode adicionar as novas localidades ja
+	 * existirem. Sugestao: utilizar os metodos de getLocalidades e
+	 * haveRepeticoes.
 	 * 
 	 * @param percurso
 	 *            Percurso composto a adicionar
 	 * @return True se adicionou
 	 */
-	public boolean addicionarPercursoCompostoNoFinal(PercursoComposto percurso) {
-		// TODO
-		return false;
+	public boolean adicionarPercursoCompostoNoFinal(PercursoComposto percurso) {
+        if (this.percursosCompostos.length > 0) {
+            return false;
+        }
+
+        try {
+            this.percursosCompostos = (PercursoComposto[]) Path.insert(this.percursosCompostos, this.maxPercursos, -1, percurso);
+            return true;
+        }
+        catch(IllegalArgumentException e) {
+            return false;
+        }
 	}
 
 	/**
-	 * Método que retorna true se há repetições entre os dois arrays. Sugere-se
-	 * a ordenação de um array, e percorrer o outro e para cada elemento dele
-	 * fazer uma pesquisa binária no array ordenado.
+	 * Metodo que retorna true se ha repeticoes entre os dois arrays. Sugere-se
+	 * a ordenacao de um array, e percorrer o outro e para cada elemento dele
+	 * fazer uma pesquisa binaria no array ordenado.
 	 * 
 	 * @param locs1
 	 *            Array1 com localidades
 	 * @param locs2
 	 *            Array2 com localidades
 	 * @return True se alguma localidade em Array1 existe em array2, false caso
-	 *         contrário
+	 *         contrario
 	 */
 	private static boolean haveRepetitions(String[] locs1, String[] locs2) {
 		// TODO
@@ -204,10 +237,10 @@ public class PercursoComposto {
 	}
 
 	/**
-	 * Obtém todas as localidades distintas existentes do percurso, mesmo as de
-	 * início e de fim. Deve devolver as localidades num novo array e sem
-	 * posições a null. Sugestão: utilizar o método getNumLocalidades para saber
-	 * préviamente quantas localidades há.
+	 * Obtem todas as localidades distintas existentes do percurso, mesmo as de
+	 * inicio e de fim. Deve devolver as localidades num novo array e sem
+	 * posicoes a null. Sugestao: utilizar o metodo getNumLocalidades para saber
+	 * previamente quantas localidades ha.
 	 * 
 	 * @return O novo array com todas as localidades existentes no percurso
 	 *         composto
@@ -218,11 +251,11 @@ public class PercursoComposto {
 	}
 
 	/**
-	 * Obtém o número de localidades distintas existentes dentro do percurso
-	 * composto actual. Devem ser incluidas as localidades de início e de fim do
+	 * Obtem o numero de localidades distintas existentes dentro do percurso
+	 * composto actual. Devem ser incluidas as localidades de inicio e de fim do
 	 * percurso.
 	 * 
-	 * @return Número de localidades distintas existentes dentro deste percurso
+	 * @return Numero de localidades distintas existentes dentro deste percurso
 	 *         composto
 	 */
 	private int getNumLocalidades() {
@@ -231,43 +264,43 @@ public class PercursoComposto {
 	}
 
 	/**
-	 * Deve adicionar o percurso simples no início, desde que este esteja em
-	 * sequência e haja espaço. Não adicionar caso provoque uma repetição de
-	 * localidades. Sugestão: utilizar o getLocalidades e haveRepetitions.
+	 * Deve adicionar o percurso simples no inicio, desde que este esteja em
+	 * sequencia e haja espaco. Nao adicionar caso provoque uma repeticoes de
+	 * localidades. Sugestao: utilizar o getLocalidades e haveRepetitions.
 	 * 
 	 * @param percurso
 	 *            Percurso simples a adicionar
-	 * @return True se adicionou, ou false em caso contrário
+	 * @return True se adicionou, ou false em caso contrario
 	 */
-	public boolean addicionarPercursoSimplesNoInicio(PercursoSimples percurso) {
+	public boolean adicionarPercursoSimplesNoInicio(PercursoSimples percurso) {
 		// TODO
 		return false;
 	}
 
 	/**
-	 * Deve adicionar o percurso composto recebido no início deste percurso
-	 * composto. Não pode adicionar se já existirem percursos simples, se
-	 * provocar uma repetição de localidades, ou se não existir espaço.
-	 * Sugestão: verificar a repetição das localidades utilizando os métodos
+	 * Deve adicionar o percurso composto recebido no inicio deste percurso
+	 * composto. Nao pode adicionar se ja existirem percursos simples, se
+	 * provocar uma repeticao de localidades, ou se nao existir espaco.
+	 * Sugestao: verificar a repeticao das localidades utilizando os metodos
 	 * getLocalidades e haveRepetitions.
 	 * 
 	 * @param percurso
 	 *            Percurso composto a adicionar
-	 * @return True se adicionou, ou false caso contrário
+	 * @return True se adicionou, ou false caso contrario
 	 */
-	public boolean addicionarPercursoCompostoNoInicio(PercursoComposto percurso) {
+	public boolean adicionarPercursoCompostoNoInicio(PercursoComposto percurso) {
 		// TODO
 		return false;
 	}
 
 	/**
-	 * Devolve o início do percurso
+	 * Devolve o inicio do percurso
 	 * 
-	 * @return O local de início do percurso
+	 * @return O local de inicio do percurso
 	 */
-	public String getInicio() {
-		// TODO
-		return null;
+	@Override
+	public String get_beginning() {
+		return this.percursosSimples[0].get_beginning();
 	}
 
 	/**
@@ -275,16 +308,16 @@ public class PercursoComposto {
 	 * 
 	 * @return O local de fim do percurso
 	 */
-	public String getFim() {
-		// TODO
-		return null;
+	@Override
+	public String get_ending() {
+        return this.percursosSimples[0].get_ending();
 	}
 
 	/**
-	 * Devolve a distância do percurso, que deve ser o somatório das distâncias
+	 * Devolve a distancia do percurso, que deve ser o somatorio das distancias
 	 * dos seus percursos
 	 * 
-	 * @return A distância do percurso
+	 * @return A distancia do percurso
 	 */
 	public int getDistancia() {
 		// TODO
@@ -292,7 +325,7 @@ public class PercursoComposto {
 	}
 
 	/**
-	 * Devolve o declive do percurso, que deve ser o somatório dos declives dos
+	 * Devolve o declive do percurso, que deve ser o somatorio dos declives dos
 	 * seus percursos
 	 * 
 	 * @return O declive do percurso
@@ -303,10 +336,10 @@ public class PercursoComposto {
 	}
 
 	/**
-	 * Devolve o declive do percurso, que deve ser o somatório dos declives dos
-	 * seus percursos, mas só se deve considerar os declives positivos
+	 * Devolve o declive do percurso, que deve ser o somatorio dos declives dos
+	 * seus percursos, mas so se deve considerar os declives positivos
 	 * 
-	 * @return O declive acumulado do percurso mas só considerando os declives
+	 * @return O declive acumulado do percurso mas so considerando os declives
 	 *         positivos
 	 */
 	public int getSubidaAcumulada() {
@@ -335,7 +368,7 @@ public class PercursoComposto {
 	}
 
 	/**
-	 * Devolve uma string com uma descrição do percurso, tal como: NORTE_SUL de
+	 * Devolve uma string com uma descricao do percurso, tal como: NORTE_SUL de
 	 * Sagres para Lisboa, com 345000 metros, com 0 de declive, com 2 percursos
 	 * simples e 1 percuros compostos
 	 * 
@@ -348,12 +381,12 @@ public class PercursoComposto {
 
 	/**
 	 * Imprime na consola o percurso. Deve mostrar na primeiro linha o prefixo
-	 * seguido da informação do toString deste objecto. Depois deve mostrar os
-	 * seus percursos, um por linha, chamando os seus métodos de print, mas
-	 * passando como prefixo o prefixo recebido mas prefixado de 2 espaços.
+	 * seguido da informacao do toString deste objecto. Depois deve mostrar os
+	 * seus percursos, um por linha, chamando os seus metodos de print, mas
+	 * passando como prefixo o prefixo recebido mas prefixado de 2 espacos.
 	 * 
 	 * @param prefix
-	 *            Prefixo a colocar antes da informação do toString e também na
+	 *            Prefixo a colocar antes da informacao do toString e tambem na
 	 *            parte de mostrar os percursos.
 	 */
 	public void print(String prefix) {
@@ -411,8 +444,7 @@ public class PercursoComposto {
 
 		// =====================================================================
 		System.out.println(strSeparator);
-		System.out
-				.println("Teste ao construtor com arrays de PercursoSimple e PercursoComposto");
+		System.out.println("Teste ao construtor com arrays de PercursoSimples e PercursoComposto");
 		PercursoComposto pc4 = new PercursoComposto("SUL_NORTE",
 				new PercursoSimples[] { ps1, ps2 },
 				new PercursoComposto[] { new PercursoComposto("NN", ps3, 20) },
@@ -422,9 +454,9 @@ public class PercursoComposto {
 
 		// =====================================================================
 		System.out.println(strSeparator);
-		System.out.println("Teste ao adicionar PercursoSimples No Início");
+		System.out.println("Teste ao adicionar PercursoSimples No Inicio");
 
-		pc1.addicionarPercursoSimplesNoInicio(ps4);
+		pc1.adicionarPercursoSimplesNoInicio(ps4);
 		pc1.print("> ");
 		System.out.println();
 
@@ -434,8 +466,8 @@ public class PercursoComposto {
 		pc1.print("> ");
 		System.out.println();
 
-		boolean result = pc1.addicionarPercursoSimplesNoFinal(ps3);
-		System.out.println("A adição de " + ps3 + " deu -> " + result);
+		boolean result = pc1.adicionarPercursoSimplesNoFinal(ps3);
+		System.out.println("A adicao de " + ps3 + " deu -> " + result);
 		System.out.println();
 
 		pc1.print("> ");
@@ -443,13 +475,12 @@ public class PercursoComposto {
 
 		// =====================================================================
 		System.out.println(strSeparator);
-		System.out
-				.println("Teste ao adicionar PercursoSimples No Final com erro");
+		System.out.println("Teste ao adicionar PercursoSimples No Final com erro");
 		pc1.print("> ");
 		System.out.println();
 
-		result = pc1.addicionarPercursoSimplesNoFinal(ps3);
-		System.out.println("A adição de " + ps3 + " deu -> " + result);
+		result = pc1.adicionarPercursoSimplesNoFinal(ps3);
+		System.out.println("A adicao de " + ps3 + " deu -> " + result);
 		System.out.println();
 
 		pc1.print("> ");
@@ -461,9 +492,9 @@ public class PercursoComposto {
 		pc2.print("> ");
 		System.out.println();
 
-		result = pc2.addicionarPercursoCompostoNoInicio(new PercursoComposto(
+		result = pc2.adicionarPercursoCompostoNoInicio(new PercursoComposto(
 				"SAGRESFARO", ps4, 20));
-		System.out.println("A adição de " + ps4 + " deu -> " + result);
+		System.out.println("A adicao de " + ps4 + " deu -> " + result);
 		System.out.println();
 
 		pc2.print("> ");
@@ -471,13 +502,12 @@ public class PercursoComposto {
 
 		// =====================================================================
 		System.out.println(strSeparator);
-		System.out
-				.println("Teste ao adicionar PercursoComposto No Inicio com erro");
+		System.out.println("Teste ao adicionar PercursoComposto No Inicio com erro");
 		pc1.print("> ");
 		System.out.println();
 
-		result = pc1.addicionarPercursoCompostoNoInicio(pc2);
-		System.out.println("A adição de " + pc2 + " deu -> " + result);
+		result = pc1.adicionarPercursoCompostoNoInicio(pc2);
+		System.out.println("A adicao de " + pc2 + " deu -> " + result);
 		System.out.println();
 
 		pc1.print("> ");
@@ -495,8 +525,8 @@ public class PercursoComposto {
 		PercursoComposto pc7 = new PercursoComposto("centro",
 				new PercursoSimples[] { ps2, ps3 }, 20);
 
-		result = pc6.addicionarPercursoCompostoNoFinal(pc7);
-		System.out.println("A adição de " + pc7 + " deu -> " + result);
+		result = pc6.adicionarPercursoCompostoNoFinal(pc7);
+		System.out.println("A adicao de " + pc7 + " deu -> " + result);
 		System.out.println();
 
 		pc6.print("> ");
@@ -517,7 +547,7 @@ public class PercursoComposto {
 				new PercursoSimples[] { new PercursoSimples("vVC",
 						"Viana do Castelo", "Caminha", 70_000, 20) }, 20);
 
-		result = pc6.addicionarPercursoCompostoNoFinal(pcA);
+		result = pc6.adicionarPercursoCompostoNoFinal(pcA);
 
 		System.out.println("Adicionado " + pcA + " ao pc original, deu -> "
 				+ result);
@@ -572,7 +602,7 @@ Teste ao construtor com arrays de PercursoSimple e PercursoComposto
     > A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
 
  ---------------------------------------------------------------- 
-Teste ao adicionar PercursoSimples No Início
+Teste ao adicionar PercursoSimples No Inï¿½cio
 > NORTE_SUL de Sagres para Porto, com 662000 metros, com 20 de declive, com 3 percursos simples e 0 percursos compostos
   > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
   > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
@@ -585,7 +615,7 @@ Teste ao adicionar PercursoSimples No Final
   > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
   > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
 
-A adição de A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive deu -> true
+A adiï¿½ï¿½o de A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive deu -> true
 
 > NORTE_SUL de Sagres para Viana do Castelo, com 735800 metros, com 50 de declive, com 4 percursos simples e 0 percursos compostos
   > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
@@ -601,7 +631,7 @@ Teste ao adicionar PercursoSimples No Final com erro
   > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
   > A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
 
-A adição de A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive deu -> false
+A adiï¿½ï¿½o de A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive deu -> false
 
 > NORTE_SUL de Sagres para Viana do Castelo, com 735800 metros, com 50 de declive, com 4 percursos simples e 0 percursos compostos
   > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
@@ -616,7 +646,7 @@ Teste ao adicionar PercursoComposto No Inicio
     > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
     > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
 
-A adição de A23 de Sagres para Faro, com 67000 metros e com -10 de declive deu -> true
+A adiï¿½ï¿½o de A23 de Sagres para Faro, com 67000 metros e com -10 de declive deu -> true
 
 > NORTE_SUL_V2 de Sagres para Porto, com 662000 metros, com 20 de declive, com 0 percursos simples e 2 percursos compostos
   > SAGRESFARO de Sagres para Faro, com 67000 metros, com -10 de declive, com 1 percursos simples e 0 percursos compostos
@@ -633,7 +663,7 @@ Teste ao adicionar PercursoComposto No Inicio com erro
   > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
   > A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
 
-A adição de NORTE_SUL_V2 de Sagres para Porto, com 662000 metros, com 20 de declive, com 0 percursos simples e 2 percursos compostos deu -> false
+A adiï¿½ï¿½o de NORTE_SUL_V2 de Sagres para Porto, com 662000 metros, com 20 de declive, com 0 percursos simples e 2 percursos compostos deu -> false
 
 > NORTE_SUL de Sagres para Viana do Castelo, com 735800 metros, com 50 de declive, com 4 percursos simples e 0 percursos compostos
   > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
@@ -648,7 +678,7 @@ Teste ao adicionar PercursoComposto No Final
     > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
     > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
 
-A adição de centro de Lisboa para Viana do Castelo, com 390800 metros, com 50 de declive, com 2 percursos simples e 0 percursos compostos deu -> true
+A adiï¿½ï¿½o de centro de Lisboa para Viana do Castelo, com 390800 metros, com 50 de declive, com 2 percursos simples e 0 percursos compostos deu -> true
 
 > sul de Sagres para Viana do Castelo, com 735800 metros, com 50 de declive, com 0 percursos simples e 2 percursos compostos
   > ss de Sagres para Lisboa, com 345000 metros, com 0 de declive, com 2 percursos simples e 0 percursos compostos

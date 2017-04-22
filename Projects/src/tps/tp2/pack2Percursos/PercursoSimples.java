@@ -1,10 +1,12 @@
 package tps.tp2.pack2Percursos;
 
+import tps.tp2.Path;
+
 /**
  * Classe que suporta um percurso simples
  *
  */
-public class PercursoSimples {
+public class PercursoSimples implements Path {
 
 	/**
 	 * nome do percurso, deve conter so letras, digitos e espacos, deve comecar
@@ -52,19 +54,19 @@ public class PercursoSimples {
 	 */
 	public PercursoSimples(String nome, String inicio, String fim, int distancia, int declive) {
 		if (!PercursoSimples.validarNomeDeLocal(nome)) {
-			throw new IllegalArgumentException("Invalid location name");
+			throw new IllegalArgumentException(Path.INVALID_LOCATION);
 		}
 
 		if (!PercursoSimples.validarNomeDeLocal(inicio)) {
-			throw new IllegalArgumentException("Invalid path start name");
+			throw new IllegalArgumentException(Path.INVALID_PATH_NAME);
 		}
 
 		if (!PercursoSimples.validarNomeDeLocal(fim)) {
-			throw new IllegalArgumentException("Invalid path end name");
+			throw new IllegalArgumentException(Path.INVALID_PATH_NAME);
 		}
 
 		if (distancia < 1) {
-			throw new IllegalArgumentException("Invalid distance");
+			throw new IllegalArgumentException(Path.INVALID_DISTANCE);
 		}
 
 		this.nome = nome;
@@ -84,15 +86,11 @@ public class PercursoSimples {
 	public PercursoSimples(PercursoSimples p) {
 		this(
 				p.getNome(),
-				p.getInicio(),
-				p.getFim(),
+				p.get_beginning(),
+				p.get_ending(),
 				p.getDistancia(),
 				p.getDeclive()
 		);
-	}
-
-	protected boolean validate(PercursoSimples p) {
-		return this.fim.equalsIgnoreCase(p.getInicio());
 	}
 
 	/**
@@ -134,7 +132,8 @@ public class PercursoSimples {
 	 * 
 	 * @return O local de inicio do percurso
 	 */
-	public String getInicio() {
+	@Override
+	public String get_beginning() {
 		return this.inicio;
 	}
 
@@ -143,7 +142,8 @@ public class PercursoSimples {
 	 * 
 	 * @return O local de fim do percurso
 	 */
-	public String getFim() {
+	@Override
+	public String get_ending() {
 		return this.fim;
 	}
 
@@ -194,8 +194,8 @@ public class PercursoSimples {
 	public boolean equals(PercursoSimples percurso) {
 		return (
 				percurso.getNome().equalsIgnoreCase(this.nome)
-				&& percurso.getInicio().equalsIgnoreCase(this.inicio)
-				&& percurso.getFim().equalsIgnoreCase(this.fim)
+				&& percurso.get_beginning().equalsIgnoreCase(this.inicio)
+				&& percurso.get_ending().equalsIgnoreCase(this.fim)
 		);
 	}
 
@@ -229,5 +229,4 @@ public class PercursoSimples {
 
 		System.out.println("ps1 toString -> " + ps1);
 	}
-
 }

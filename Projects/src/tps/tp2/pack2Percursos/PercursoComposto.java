@@ -1,11 +1,13 @@
 package tps.tp2.pack2Percursos;
 
+import tps.tp2.Path;
+
 import java.util.Arrays;
 
 /**
  * Classe que suporta um percurso composto por varios percursos simples
  */
-public class PercursoComposto {
+public class PercursoComposto implements Path {
 
 	private final int maxPercursos;
 	/**
@@ -63,43 +65,7 @@ public class PercursoComposto {
 		this.percursos = percursos;
 		this.maxPercursos = maxPercursos;
 
-		this.validate();
-	}
-
-	protected boolean validate() throws IllegalArgumentException {
-		final String INVALID_SEQUENCE = "Beginning and end sequence does not match";
-		final String INVALID_QUANTITY = "Invalid paths quantity";
-		final String REPEATED_LOCATIONS = "There are paths with repeated locations";
-
-		PercursoSimples[] paths = this.percursos;
-
-		if (paths.length == 0 || paths.length > this.maxPercursos) {
-			throw new IllegalArgumentException(INVALID_QUANTITY);
-		}
-
-		String[] beginnings = new String[paths.length];
-		String[] endings = new String[paths.length];
-
-		for (int i = 0; i < paths.length; i++) {
-
-			if (i < paths.length - 1 && !paths[i].validate(paths[i + 1])) {
-				throw new IllegalArgumentException(INVALID_SEQUENCE);
-			}
-
-			beginnings[i] = paths[i].getInicio();
-			endings[i] = paths[i].getFim();
-
-			for (int j = i + 1; j < paths.length; j++) {
-				if (beginnings[i].equalsIgnoreCase(paths[j].getInicio())
-					|| endings[i].equalsIgnoreCase(paths[j].getFim())
-						) {
-					throw new IllegalArgumentException(REPEATED_LOCATIONS);
-
-				}
-			}
-		}
-
-		return true;
+		Path.validate(this.percursos, this.maxPercursos);
 	}
 
 	/**
@@ -129,41 +95,7 @@ public class PercursoComposto {
 	 * @return True se adicionou
 	 */
 	public boolean adicionarPercursoNoFinal(PercursoSimples percurso) {
-		this.insert(-1, percurso);
-
-		try {
-			this.validate();
-		} catch (IllegalArgumentException e) {
-			return false;
-		}
-
-		return true;
-	}
-
-	private boolean insert(int idx, PercursoSimples path) {
-		int n = this.percursos.length;
-
-		if (n + 1 > this.maxPercursos) {
-			return false;
-		}
-
-		if (idx == -1) {
-			idx = n;
-		}
-
-		PercursoSimples[] paths = new PercursoSimples[++n];
-
-		for (int i = 0, j = 0; i < n; i++) {
-			if (i == idx) {
-				paths[i] = path;
-				continue;
-			}
-
-			paths[i] = this.percursos[j++];
-		}
-
-		this.percursos = paths;
-
+		this.percursos = (PercursoSimples[]) Path.insert(this.percursos, this.maxPercursos, -1, percurso);
 		return true;
 	}
 
@@ -176,51 +108,8 @@ public class PercursoComposto {
 	 * @return True se adicionou
 	 */
 	public boolean adicionarPercursoNoInicio(PercursoSimples percurso) {
-		this.insert(0, percurso);
-
-		try {
-			this.validate();
-		} catch (IllegalArgumentException e) {
-			return false;
-		}
-
+		this.percursos = (PercursoSimples[]) Path.insert(this.percursos, this.maxPercursos, 0, percurso);
 		return true;
-	}
-
-	private PercursoSimples[] remove(boolean factor, String local) {
-		int n = -1;
-
-		for (int i = 0; i < this.percursos.length; i++) {
-			if (this.percursos[i].getInicio().equalsIgnoreCase(local)) {
-				n = i;
-				break;
-			}
-		}
-
-		if (n == -1) {
-			return null;
-		}
-
-		PercursoSimples[] new_paths = new PercursoSimples[n];
-		PercursoSimples[] old_paths = new PercursoSimples[n];
-
-		for (int i = 0; i < n; i++) {
-			new_paths[i] = this.percursos[i];
-		}
-
-		for (int i = n; i < this.percursos.length; i++) {
-			old_paths[i - n] = this.percursos[i];
-		}
-
-		if (factor) {
-			this.percursos = new_paths;
-			return old_paths;
-		}
-		else {
-			this.percursos = old_paths;
-			return new_paths;
-		}
-
 	}
 
 	/**
@@ -234,7 +123,9 @@ public class PercursoComposto {
 	 * @return Os percursos removido ou null caso nao remova nada
 	 */
 	public PercursoSimples[] removerPercursosNoFimDesde(String localidade) {
-		return this.remove(true, localidade);
+		Path[] aux = this.percursos;
+		this.percursos = (PercursoSimples[]) Path.remove(aux, true, localidade);
+		return (PercursoSimples[]) Path.remove(aux, false, localidade);
 	}
 
 	/**
@@ -248,7 +139,9 @@ public class PercursoComposto {
 	 * @return Os percursos removido ou null caso nao remova nada
 	 */
 	public PercursoSimples[] removerPercursosNoInicioAte(String localidade) {
-		return this.remove(false, localidade);
+		Path[] aux = this.percursos;
+		this.percursos = (PercursoSimples[]) Path.remove(aux, false, localidade);
+		return (PercursoSimples[]) Path.remove(aux, true, localidade);
 	}
 
 	/**
@@ -262,7 +155,7 @@ public class PercursoComposto {
 	 */
 	private int findLocalidade(String localidade) {
 		for (int i = 0; i < this.percursos.length; i++) {
-			if (this.percursos[i].getInicio().equalsIgnoreCase(localidade)) {
+			if (this.percursos[i].get_beginning().equalsIgnoreCase(localidade)) {
 				return i;
 			}
 		}
@@ -275,8 +168,9 @@ public class PercursoComposto {
 	 * 
 	 * @return O local de inicio do percurso
 	 */
-	public String getInicio() {
-		return this.percursos[0].getInicio();
+	@Override
+	public String get_beginning() {
+		return this.percursos[0].get_beginning();
 	}
 
 	/**
@@ -284,9 +178,9 @@ public class PercursoComposto {
 	 * 
 	 * @return O local de fim do percurso
 	 */
-	public String getFim() {
+	public String get_ending() {
 		int n = this.percursos.length - 1;
-		return this.percursos[n].getFim();
+		return this.percursos[n].get_ending();
 	}
 
 	/**
@@ -379,8 +273,8 @@ public class PercursoComposto {
 				"%s de %s para %s, com %d metros," +
 				" com %d de declive e com %d percursos",
 				this.nome,
-				this.percursos[0].getInicio(),
-				this.percursos[n].getFim(),
+				this.percursos[0].get_beginning(),
+				this.percursos[n].get_ending(),
 				this.getDistancia(),
 				this.getDeclive(),
 				this.percursos.length
