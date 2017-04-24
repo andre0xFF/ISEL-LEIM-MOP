@@ -167,14 +167,19 @@ public class P03ImagePainter {
 	}
 
 	/**
-	 * 
+	 * Calcula o valor medio RGB de um pixel numa coordenada
+	 * @param x Valor das absissas
+	 * @param y Valos das ordenadas
+	 * @return Valor medio RGB
 	 */
 	private int getPixelColor(int x, int y) {
 		int pixelColor = 0;
 		int count = 0;
 
+		// Loop around the centered pixel
 		for (int w = x - 1; w <= x + 1; w++) {
 			for (int h = y - 1; h <= y + 1; h++) {
+				// Don't go out the image frame
 				if (w < 0 || w > this.image.getWidth()) {
 					continue;
 				}
@@ -191,12 +196,16 @@ public class P03ImagePainter {
 	}
 
 	/**
-	 * 
+	 * Transforma uma regiao de uma determinada cor para outra
+	 * @param x Valor das absissas
+	 * @param y Valos das ordenadas
+	 * @param refColorRGB Cor de referencia a ser substituida
+	 * @param paintColorRGB Cor de substituicao
 	 */
 	private void transformPoint(int x, int y, int refColorRGB, int paintColorRGB) {
-		int pixel_rgb = clearAlphaChannel(image.getRGB(x, y));
-		int avg_rgb = this.getPixelColor(x, y);
-
+		int pixel_rgb = clearAlphaChannel(refColorRGB);
+		int avg_rgb = clearAlphaChannel(this.getPixelColor(x, y));
+		// Threshold comparison
 		if (Math.abs(pixel_rgb - avg_rgb) <= this.threshold) {
 			return;
 		}

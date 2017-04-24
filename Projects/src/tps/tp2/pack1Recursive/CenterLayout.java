@@ -7,12 +7,12 @@ import java.awt.Dimension;
 import java.awt.Insets;
 
 /**
- * Center layout - este layout coloca o único componente no centro e packed. Mas
- * se tiver a propriedade de isAllwaysCentred a false então no caso de falta de
- * algum componente o componente central é deslocado nessa direcção mas mantendo
- * sempre as suas dimensões.
+ * Center layout - este layout coloca o inico componente no centro e packed. Mas
+ * se tiver a propriedade de isAllwaysCentred a false entao no caso de falta de
+ * algum componente o componente central e' deslocado nessa direccao mas mantendo
+ * sempre as suas dimensoes.
  * 
- * By: António Teófilo, v3.0 June, 2014
+ * By: Antonio Teofilo, v3.0 June, 2014
  */
 public class CenterLayout extends BorderLayout {
 

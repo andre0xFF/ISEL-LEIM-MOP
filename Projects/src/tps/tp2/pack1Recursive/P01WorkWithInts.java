@@ -1,13 +1,7 @@
 package tps.tp2.pack1Recursive;
 
-/**
- * Classe para conter exercicios recursivos com inteiros
- */
 public class P01WorkWithInts {
 
-	/**
-	 * Main, metodo de arranque da execucao
-	 */
 	public static void main(String[] args) {
 
 		// ====================================================
@@ -33,8 +27,7 @@ public class P01WorkWithInts {
 	 * Recebe um inteiro e deve devolve-lo, mas com os digitos zero removidos.
 	 * No caso de receber zero devera devolver esse mesmo valor
 	 * 
-	 * @param n
-	 *            o numero a processar
+	 * @param n o numero a processar
 	 * @return o numero sem digitos zero
 	 */
 	private static int removeZeros(int n) {
@@ -108,14 +101,14 @@ public class P01WorkWithInts {
 	}
 
 	/**
-	 * Este metodo recebe um inteiro positivo e deve devolver uma String com os
-	 * seus digitos. Para tal deve trabalhar digito a digito e utilizar
+	 * Este metodo recebe um inteiro positivo e devolve uma String com os
+	 * seus digitos. Para tal trabalha digito a digito e utiliza
 	 * String.valueOf(int) com inteiros so com um digito. Em caso de input
 	 * invalido, deve lancar a excecao IllegalArgumentException com a indicacao
 	 * clara do erro.
 	 * 
-	 * @param n
-	 * @return
+	 * @param n Inteiro positivo
+	 * @return Numero inteiro positivo em forma de string
 	 */
 	private static String intToString(int n) {
 		// @param n can't be negative

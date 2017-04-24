@@ -10,29 +10,16 @@ import java.util.Arrays;
 public class PercursoComposto implements Path {
 
 	private final int maxPercursos;
-	/**
-	 * Nome do percurso, deve respeitar a regra de validacao dos nomes em
-	 * percurso simples
-	 */
+
 	private String nome;
 
-	/**
-	 * Array com os percursos simples. Os elementos devem ser colocados nos
-	 * indices menores. Tem de ter pelo menos um percurso. Nao admite
-	 * localidades repetidas. Os percursos teem de estar em sequencia, ou seja,
-	 * onde termina o percurso de indice 0 tem de ser onde se inicia o percurso
-	 * de indice 1 e assim sucessivamente ...
-	 */
 	private PercursoSimples[] percursos;
 
-	/**
-	 * Numero de percursos
-	 */
 	private int nPercursos;
 
 	/**
 	 * Constructor que recebe apenas um percurso, alem do nome e do no maximo de
-	 * percursos. Este constructor deve chamar o constructor que a ele se segue.
+	 * percursos.
 	 * 
 	 * @param nome
 	 *            Nome do percurso
@@ -47,16 +34,12 @@ public class PercursoComposto implements Path {
 
 	/**
 	 * Constructor que recebe o nome, um array de percursos e o maximo de
-	 * percursos a suportar. Em caso de argumentos invalidos deve ser lancada a
-	 * excepcao IllegalArgumentException com uma mensagem a indicar o erro
-	 * ocorrido e o argumento invalido.
+	 * percursos a suportar.
 	 * 
 	 * @param nome
 	 *            Nome do percurso
 	 * @param percursos
-	 *            Percursos a serem guardados. O array nao pode conter nulls,
-	 *            tem de conter pelo menos um percurso e os seus percursos devem
-	 *            estar em sequencia.
+	 *            Percursos a serem guardados.
 	 * @param maxPercursos
 	 *            Numero maximo de percursos suportado
 	 */
@@ -69,8 +52,7 @@ public class PercursoComposto implements Path {
 	}
 
 	/**
-	 * Copy constructor, deve criar uma copia do percurso recebido. Essa copia
-	 * deve ser uma copia profunda.
+	 * Copy constructor, cria uma copia profunda do percurso recebido.
 	 * 
 	 * @param pc
 	 *            Percurso a copiar
@@ -80,14 +62,14 @@ public class PercursoComposto implements Path {
 	}
 
 	/**
-	 * Deve criar uma copia profunda do percurso corrente
+	 * Cria uma copia profunda do actual percurso
 	 */
 	public PercursoComposto clone() {
 		return new PercursoComposto(this);
 	}
 
 	/**
-	 * Deve adicionar o percurso no final, desde que este esteja em sequencia e
+	 * Adiciona o percurso no final, desde que este esteja em sequencia e
 	 * haja espaco
 	 * 
 	 * @param percurso
@@ -119,7 +101,7 @@ public class PercursoComposto implements Path {
 	}
 
 	/**
-	 * Deve adicionar o percurso no inicio, desde que este esteja em sequencia e
+	 * Adiciona o percurso no inicio, desde que este esteja em sequencia e
 	 * haja espaco
 	 * 
 	 * @param percurso
@@ -151,7 +133,7 @@ public class PercursoComposto implements Path {
 	}
 
 	/**
-	 * Deve remover e devolver todos os percursos desde o ponto da localidade
+	 * Remove e devolve todos os percursos desde o ponto da localidade
 	 * recebida. Exemplo: percurso com a-b/b-c/c-d/d-e,
 	 * removerPercursoNoFimDesde(c), deve resultar no percurso com a-b/b-c e
 	 * deve devolver c-d/d-e.
@@ -167,7 +149,7 @@ public class PercursoComposto implements Path {
 	}
 
 	/**
-	 * Deve remover e devolver todos os percursos desde o inicio ate ao ponto da
+	 * Remove e devolver todos os percursos desde o inicio ate ao ponto da
 	 * localidade recebida. Exemplo: percurso com a-b/b-c/c-d/d-e,
 	 * removerPercursoNoInicioAte(c), deve resultar no percurso com c-d/d-e e
 	 * devolver a-b/b-c.
@@ -183,7 +165,7 @@ public class PercursoComposto implements Path {
 	}
 
 	/**
-	 * Deve devolver o indice do percurso em que a localidade e' inicio, ou -1
+	 * Devolve o indice do percurso em que a localidade e' inicio, ou -1
 	 * caso nao encontre
 	 * 
 	 * @param localidade
