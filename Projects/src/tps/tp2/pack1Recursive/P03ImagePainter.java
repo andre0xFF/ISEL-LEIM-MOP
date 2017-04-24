@@ -142,25 +142,25 @@ public class P03ImagePainter {
 	 * 
 	 */
 	public void drawSquare(int x, int y, Color paintColor) {
-		// desprezar o canal Alpha (transparência) em todas as cores utilizadas
+		// desprezar o canal Alpha (transparï¿½ncia) em todas as cores utilizadas
 		int paintColorRGB = clearAlphaChannel(paintColor.getRGB());
 
-		image.setRGB(x - 1, y - 1, paintColorRGB);
-		image.setRGB(x + 0, y - 1, paintColorRGB);
-		image.setRGB(x + 1, y - 1, paintColorRGB);
-		image.setRGB(x - 1, y + 0, paintColorRGB);
+//		image.setRGB(x - 1, y - 1, paintColorRGB);
+//		image.setRGB(x + 0, y - 1, paintColorRGB);
+//		image.setRGB(x + 1, y - 1, paintColorRGB);
+//		image.setRGB(x - 1, y + 0, paintColorRGB);
 		image.setRGB(x + 0, y + 0, paintColorRGB);
-		image.setRGB(x + 1, y + 0, paintColorRGB);
-		image.setRGB(x - 1, y + 1, paintColorRGB);
-		image.setRGB(x + 0, y + 1, paintColorRGB);
-		image.setRGB(x + 1, y + 1, paintColorRGB);
+//		image.setRGB(x + 1, y + 0, paintColorRGB);
+//		image.setRGB(x - 1, y + 1, paintColorRGB);
+//		image.setRGB(x + 0, y + 1, paintColorRGB);
+//		image.setRGB(x + 1, y + 1, paintColorRGB);
 	}
 
 	/**
 	 * 
 	 */
 	public void transformImage(int x, int y, Color paintColor) {
-		// desprezar o canal Alpha (transparência) em todas as cores utilizadas
+		// desprezar o canal Alpha (transparï¿½ncia) em todas as cores utilizadas
 		int paintColorRGB = clearAlphaChannel(paintColor.getRGB());
 
 		transformPoint(x, y, getPixelColor(x, y), paintColorRGB);
@@ -170,32 +170,54 @@ public class P03ImagePainter {
 	 * 
 	 */
 	private int getPixelColor(int x, int y) {
-		// desprezar o canal Alpha (transparência) em todas as cores utilizadas
-		int pixelColor = clearAlphaChannel(image.getRGB(x, y));
+		int pixelColor = 0;
+		int count = 0;
 
-		// Threshold defined in GUI: threshold
+		for (int w = x - 1; w <= x + 1; w++) {
+			for (int h = y - 1; h <= y + 1; h++) {
+				if (w < 0 || w > this.image.getWidth()) {
+					continue;
+				}
+				if (h < 0 || h > this.image.getHeight()) {
+					continue;
+				}
 
-		// TODO falta fazer
+				count++;
+				pixelColor += clearAlphaChannel(this.image.getRGB(w, h));
+			}
+		}
 
-		return pixelColor;
+		return pixelColor / count;
 	}
 
 	/**
 	 * 
 	 */
 	private void transformPoint(int x, int y, int refColorRGB, int paintColorRGB) {
-		// desprezar o canal Alpha (transparência) em todas as cores utilizadas
-		int pixelRGB = clearAlphaChannel(image.getRGB(x, y));
+		int pixel_rgb = clearAlphaChannel(image.getRGB(x, y));
+		int avg_rgb = this.getPixelColor(x, y);
 
-		// Image width: 0 to imageWidth -1
-		// Image height: 0 to imageHeight -1
-		// Threshold defined in GUI: threshold
+		if (Math.abs(pixel_rgb - avg_rgb) <= this.threshold) {
+			return;
+		}
 
-		// TODO falta fazer
-
-		// dummy code
 		drawSquare(x, y, new Color(paintColorRGB));
 
+		for (int w = x - 1; w <= x + 1; w++) {
+			for (int h = y - 1; h <= y + 1; h++) {
+				if (w == x && h == y) {
+					continue;
+				}
+				if (w < 0 || w > this.image.getWidth()) {
+					continue;
+				}
+				if (h < 0 || h > this.image.getHeight()) {
+					continue;
+				}
+
+				this.transformPoint(w, h, avg_rgb, paintColorRGB);
+			}
+		}
 	}
 
 	/**
@@ -236,7 +258,7 @@ public class P03ImagePainter {
 					int y = p.y - deltaHeight;
 					System.out.println("Image clicked Point: " + x + " " + y);
 					if (x < 0 || y < 0) {
-						System.out.println("Clicke point is out of image. Will be ignored...");
+						System.out.println("Click point is out of image. Will be ignored...");
 						return;
 					}
 
@@ -246,7 +268,7 @@ public class P03ImagePainter {
 						drawSquare(x, y, colorLabel.getBackground());
 					updateImage();
 				} catch (StackOverflowError error) {
-					System.out.println("stach overflow: " + " Area too big for a recursive algorithm...");
+					System.out.println("stack overflow: " + " Area too big for a recursive algorithm...");
 				}
 			}
 		});
@@ -347,7 +369,7 @@ public class P03ImagePainter {
 	}
 
 	/**
-	 * Método main
+	 * Mï¿½todo main
 	 * 
 	 * @param args
 	 */
