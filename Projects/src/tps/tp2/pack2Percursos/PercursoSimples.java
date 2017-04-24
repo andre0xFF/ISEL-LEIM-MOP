@@ -111,11 +111,7 @@ public class PercursoSimples implements Path {
 	 * @return True se o nome for valido
 	 */
 	private static boolean validarNomeDeLocal(String nome) {
-		if (nome.trim().length() == 0) {
-			return false;
-		}
-
-		return nome.matches("^[0-9A-Za-z\\s]+$");
+		return Path.validate(nome);
 	}
 
 	/**

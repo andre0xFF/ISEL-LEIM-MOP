@@ -1,5 +1,6 @@
 package tps.tp2.pack3PercursosComPercursos;
 
+import org.apache.commons.lang.NotImplementedException;
 import tps.tp2.Path;
 import tps.tp2.pack2Percursos.PercursoSimples;
 
@@ -12,7 +13,7 @@ import tps.tp2.pack2Percursos.PercursoSimples;
  * composto considera-se que os seus percursos compostos estao em sequencia
  * (depois) de todos os percursos simples.
  */
-public class PercursoComposto implements Path{
+public class PercursoComposto implements Path {
 
 	private int maxPercursos;
 
@@ -182,17 +183,26 @@ public class PercursoComposto implements Path{
 	 * @return True se adicionou
 	 */
 	public boolean adicionarPercursoSimplesNoFinal(PercursoSimples percurso) {
-	    if (this.percursosSimples.length > 0) {
+	    if (this.percursosSimples.length == 0) {
 	        return false;
         }
 
+        Path[] aux = Path.insert(this.percursosSimples, this.maxPercursos, -1, percurso);;
+
         try {
-            this.percursosSimples = (PercursoSimples[]) Path.insert(this.percursosSimples, this.maxPercursos, -1, percurso);
-            return true;
+            Path.validate(aux, this.maxPercursos);
         }
         catch(IllegalArgumentException e) {
-            return false;
+	        return false;
         }
+
+        this.percursosSimples = new PercursoSimples[aux.length];
+
+        for (int i = 0; i < aux.length; i++) {
+            this.percursosSimples[i] = (PercursoSimples) aux[i];
+        }
+
+        return true;
 	}
 
 	/**
@@ -206,17 +216,23 @@ public class PercursoComposto implements Path{
 	 * @return True se adicionou
 	 */
 	public boolean adicionarPercursoCompostoNoFinal(PercursoComposto percurso) {
-        if (this.percursosCompostos.length > 0) {
-            return false;
-        }
+        Path[] aux = Path.insert(this.percursosCompostos.clone(), this.maxPercursos, -1, percurso);
 
-        try {
-            this.percursosCompostos = (PercursoComposto[]) Path.insert(this.percursosCompostos, this.maxPercursos, -1, percurso);
-            return true;
-        }
-        catch(IllegalArgumentException e) {
-            return false;
-        }
+
+		try {
+			Path.validate(aux, this.maxPercursos);
+		}
+		catch(Exception e) {
+			return false;
+		}
+
+		this.percursosCompostos = new PercursoComposto[aux.length];
+
+		for (int i = 0; i < aux.length; i++) {
+			this.percursosCompostos[i] = (PercursoComposto) aux[i];
+		}
+
+        return true;
 	}
 
 	/**
@@ -232,8 +248,15 @@ public class PercursoComposto implements Path{
 	 *         contrario
 	 */
 	private static boolean haveRepetitions(String[] locs1, String[] locs2) {
-		// TODO
-		return false;
+		for (int i = 0; i < locs1.length; i++) {
+		    for (int j = 0; i < locs2.length; j++) {
+		        if (locs1[i].equalsIgnoreCase(locs2[j])) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
 	}
 
 	/**
@@ -246,8 +269,7 @@ public class PercursoComposto implements Path{
 	 *         composto
 	 */
 	private String[] getLocalidades() {
-		// TODO
-		return null;
+        throw new NotImplementedException();
 	}
 
 	/**
@@ -259,8 +281,13 @@ public class PercursoComposto implements Path{
 	 *         composto
 	 */
 	private int getNumLocalidades() {
-		// TODO
-		return 0;
+		int sum = this.percursosSimples.length;
+
+		for (int i = 0; i < this.percursosCompostos.length; i++) {
+		    sum += this.percursosCompostos[i].getNumLocalidades();
+        }
+
+        return sum;
 	}
 
 	/**
@@ -273,9 +300,63 @@ public class PercursoComposto implements Path{
 	 * @return True se adicionou, ou false em caso contrario
 	 */
 	public boolean adicionarPercursoSimplesNoInicio(PercursoSimples percurso) {
-		// TODO
-		return false;
+		Path[] aux = Path.insert(this.percursosSimples.clone(), this.maxPercursos, 0, percurso);
+
+		try {
+			Path.validate(aux, this.maxPercursos);
+		}
+		catch(Exception e) {
+			return false;
+		}
+
+        this.percursosSimples = new PercursoSimples[aux.length];
+
+		for (int i = 0; i < aux.length; i++) {
+		    this.percursosSimples[i] = (PercursoSimples) aux[i];
+        }
+
+		return true;
 	}
+
+	public boolean validate() {
+	    if (this.percursosSimples.length > 1) {
+            for(int i = 1; i < this.percursosSimples.length; i++) {
+                try {
+                    Path.validate(this.percursosSimples[i - 1], this.percursosSimples[i]);
+                }
+                catch(IllegalArgumentException e) {
+                    return false;
+                }
+            }
+        }
+
+        for (int i = 0; i < this.percursosCompostos.length; i++) {
+	        boolean eval = this.percursosCompostos[i].validate();
+
+	        if (!eval) {
+	            return false;
+            }
+
+            PercursoComposto p = this.percursosCompostos[i];
+
+            if (this.percursosSimples.length == 0 || p.percursosSimples.length == 0) {
+                continue;
+            }
+
+            eval = Path.validate(
+                    p.percursosSimples,
+                    p.maxPercursos,
+                    this.percursosSimples,
+                    this.maxPercursos
+            );
+
+            if (!eval) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
 	/**
 	 * Deve adicionar o percurso composto recebido no inicio deste percurso
@@ -289,8 +370,27 @@ public class PercursoComposto implements Path{
 	 * @return True se adicionou, ou false caso contrario
 	 */
 	public boolean adicionarPercursoCompostoNoInicio(PercursoComposto percurso) {
-		// TODO
-		return false;
+	    Path[] aux = Path.insert(this.percursosCompostos.clone(), this.maxPercursos, 0, percurso);
+
+        try {
+            Path.validate(
+                    this.percursosSimples,
+                    this.maxPercursos,
+                    this.percursosCompostos,
+                    this.maxPercursos);
+
+        }
+        catch (Exception e) {
+            return false;
+        }
+
+        this.percursosCompostos = new PercursoComposto[aux.length];
+
+        for (int i = 0; i < aux.length; i++) {
+            this.percursosCompostos[i] = (PercursoComposto) aux[i];
+        }
+
+        return true;
 	}
 
 	/**
@@ -300,7 +400,16 @@ public class PercursoComposto implements Path{
 	 */
 	@Override
 	public String get_beginning() {
-		return this.percursosSimples[0].get_beginning();
+	    Path p;
+
+	    if (this.percursosSimples.length > 0) {
+	        p = this.percursosSimples[0];
+        }
+        else {
+	        p = this.percursosCompostos[0];
+        }
+
+		return p.get_beginning();
 	}
 
 	/**
@@ -310,7 +419,13 @@ public class PercursoComposto implements Path{
 	 */
 	@Override
 	public String get_ending() {
-        return this.percursosSimples[0].get_ending();
+	    if (this.percursosCompostos.length > 0) {
+	        int c = this.percursosCompostos.length - 1;
+	        return this.percursosCompostos[c].get_ending();
+        }
+
+        int n = this.percursosSimples.length - 1;
+        return this.percursosSimples[n].get_ending();
 	}
 
 	/**
@@ -320,8 +435,17 @@ public class PercursoComposto implements Path{
 	 * @return A distancia do percurso
 	 */
 	public int getDistancia() {
-		// TODO
-		return 0;
+        int sum = 0;
+
+        for (int i = 0; i < this.percursosSimples.length; i++) {
+            sum += this.percursosSimples[i].getDistancia();
+        }
+
+        for (int i = 0; i < this.percursosCompostos.length; i++) {
+            sum += this.percursosCompostos[i].getDistancia();
+        }
+
+        return sum;
 	}
 
 	/**
@@ -331,8 +455,17 @@ public class PercursoComposto implements Path{
 	 * @return O declive do percurso
 	 */
 	public int getDeclive() {
-		// TODO
-		return 0;
+	    int sum = 0;
+
+	    for (int i = 0; i < this.percursosSimples.length; i++) {
+	        sum += this.percursosSimples[i].getDeclive();
+        }
+
+        for (int i = 0; i < this.percursosCompostos.length; i++) {
+	        sum += this.percursosCompostos[i].getDeclive();
+        }
+
+		return sum;
 	}
 
 	/**
@@ -343,8 +476,21 @@ public class PercursoComposto implements Path{
 	 *         positivos
 	 */
 	public int getSubidaAcumulada() {
-		// TODO
-		return 0;
+        int sum = 0;
+
+        for (int i = 0; i < this.percursosSimples.length; i++) {
+            int d = this.percursosSimples[i].getDeclive();
+
+            if (d > 0) {
+                sum += d;
+            }
+        }
+
+        for (int i = 0; i < this.percursosCompostos.length; i++) {
+            sum += this.percursosCompostos[i].getDeclive();
+        }
+
+        return sum;
 	}
 
 	/**
@@ -353,8 +499,7 @@ public class PercursoComposto implements Path{
 	 * @return O nome do percurso
 	 */
 	public String getNome() {
-		// TODO
-		return null;
+		return this.nome;
 	}
 
 	/**
@@ -364,7 +509,7 @@ public class PercursoComposto implements Path{
 	 *            O novo nome do percurso
 	 */
 	public void setNome(String nome) {
-		// TODO
+		this.nome = nome;
 	}
 
 	/**
@@ -375,8 +520,17 @@ public class PercursoComposto implements Path{
 	 * @return O string que descreve o percurso
 	 */
 	public String toString() {
-		// TODO
-		return null;
+	    return String.format(
+	            "%s de %s para %s, com %d metros, com %d de declive, com "
+                        + "%d percursos simples e %d percursos comportos",
+                this.nome,
+                this.get_beginning(),
+                this.get_ending(),
+                this.getDistancia(),
+                this.getDeclive(),
+                this.percursosSimples.length,
+                this.percursosCompostos.length
+        );
 	}
 
 	/**
@@ -390,7 +544,15 @@ public class PercursoComposto implements Path{
 	 *            parte de mostrar os percursos.
 	 */
 	public void print(String prefix) {
-		// TODO
+		System.out.printf("%s %s\n", prefix, this.toString());
+
+		for (int i = 0; i < this.percursosSimples.length; i++) {
+		    this.percursosSimples[i].print(String.format("    %s", prefix));
+        }
+
+        for (int i = 0; i < this.percursosCompostos.length; i++) {
+            this.percursosCompostos[i].print(String.format("    %s", prefix));
+        }
 	}
 
 	/**
@@ -565,168 +727,3 @@ public class PercursoComposto implements Path{
 				+ pc6.getSubidaAcumulada());
 	}
 }
-
-/*- Outputs esperados
-
----------------------------------------------------------------- 
-Teste ao construtor com PercursoSimples
-> PSA1 de Faro para Lisboa, com 278000 metros, com 10 de declive, com 1 percursos simples e 0 percursos compostos
-  > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-
- ---------------------------------------------------------------- 
-Teste ao construtor com array de PercursoSimples
-> NORTE_SUL de Faro para Porto, com 595000 metros, com 30 de declive, com 2 percursos simples e 0 percursos compostos
-  > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-  > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-
- ---------------------------------------------------------------- 
-Teste ao construtor com PercursoComposto
-> NORTE_SUL_V2 de Faro para Porto, com 595000 metros, com 30 de declive, com 0 percursos simples e 1 percursos compostos
-  > NORTE_SUL de Faro para Porto, com 595000 metros, com 30 de declive, com 2 percursos simples e 0 percursos compostos
-    > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-    > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-
- ---------------------------------------------------------------- 
-Teste ao construtor com array de PercursoComposto
-> NORTE_SUL_V2 de Faro para Porto, com 595000 metros, com 30 de declive, com 0 percursos simples e 1 percursos compostos
-  > NORTE_SUL de Faro para Porto, com 595000 metros, com 30 de declive, com 2 percursos simples e 0 percursos compostos
-    > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-    > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-
- ---------------------------------------------------------------- 
-Teste ao construtor com arrays de PercursoSimple e PercursoComposto
-> SUL_NORTE de Faro para Viana do Castelo, com 668800 metros, com 60 de declive, com 2 percursos simples e 1 percursos compostos
-  > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-  > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-  > NN de Porto para Viana do Castelo, com 73800 metros, com 30 de declive, com 1 percursos simples e 0 percursos compostos
-    > A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
-
- ---------------------------------------------------------------- 
-Teste ao adicionar PercursoSimples No In�cio
-> NORTE_SUL de Sagres para Porto, com 662000 metros, com 20 de declive, com 3 percursos simples e 0 percursos compostos
-  > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
-  > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-  > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-
- ---------------------------------------------------------------- 
-Teste ao adicionar PercursoSimples No Final
-> NORTE_SUL de Sagres para Porto, com 662000 metros, com 20 de declive, com 3 percursos simples e 0 percursos compostos
-  > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
-  > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-  > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-
-A adi��o de A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive deu -> true
-
-> NORTE_SUL de Sagres para Viana do Castelo, com 735800 metros, com 50 de declive, com 4 percursos simples e 0 percursos compostos
-  > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
-  > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-  > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-  > A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
-
- ---------------------------------------------------------------- 
-Teste ao adicionar PercursoSimples No Final com erro
-> NORTE_SUL de Sagres para Viana do Castelo, com 735800 metros, com 50 de declive, com 4 percursos simples e 0 percursos compostos
-  > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
-  > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-  > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-  > A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
-
-A adi��o de A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive deu -> false
-
-> NORTE_SUL de Sagres para Viana do Castelo, com 735800 metros, com 50 de declive, com 4 percursos simples e 0 percursos compostos
-  > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
-  > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-  > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-  > A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
-
- ---------------------------------------------------------------- 
-Teste ao adicionar PercursoComposto No Inicio
-> NORTE_SUL_V2 de Faro para Porto, com 595000 metros, com 30 de declive, com 0 percursos simples e 1 percursos compostos
-  > NORTE_SUL de Faro para Porto, com 595000 metros, com 30 de declive, com 2 percursos simples e 0 percursos compostos
-    > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-    > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-
-A adi��o de A23 de Sagres para Faro, com 67000 metros e com -10 de declive deu -> true
-
-> NORTE_SUL_V2 de Sagres para Porto, com 662000 metros, com 20 de declive, com 0 percursos simples e 2 percursos compostos
-  > SAGRESFARO de Sagres para Faro, com 67000 metros, com -10 de declive, com 1 percursos simples e 0 percursos compostos
-    > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
-  > NORTE_SUL de Faro para Porto, com 595000 metros, com 30 de declive, com 2 percursos simples e 0 percursos compostos
-    > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-    > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-
- ---------------------------------------------------------------- 
-Teste ao adicionar PercursoComposto No Inicio com erro
-> NORTE_SUL de Sagres para Viana do Castelo, com 735800 metros, com 50 de declive, com 4 percursos simples e 0 percursos compostos
-  > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
-  > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-  > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-  > A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
-
-A adi��o de NORTE_SUL_V2 de Sagres para Porto, com 662000 metros, com 20 de declive, com 0 percursos simples e 2 percursos compostos deu -> false
-
-> NORTE_SUL de Sagres para Viana do Castelo, com 735800 metros, com 50 de declive, com 4 percursos simples e 0 percursos compostos
-  > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
-  > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-  > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-  > A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
-
- ---------------------------------------------------------------- 
-Teste ao adicionar PercursoComposto No Final
-> sul de Sagres para Lisboa, com 345000 metros, com 0 de declive, com 0 percursos simples e 1 percursos compostos
-  > ss de Sagres para Lisboa, com 345000 metros, com 0 de declive, com 2 percursos simples e 0 percursos compostos
-    > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
-    > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-
-A adi��o de centro de Lisboa para Viana do Castelo, com 390800 metros, com 50 de declive, com 2 percursos simples e 0 percursos compostos deu -> true
-
-> sul de Sagres para Viana do Castelo, com 735800 metros, com 50 de declive, com 0 percursos simples e 2 percursos compostos
-  > ss de Sagres para Lisboa, com 345000 metros, com 0 de declive, com 2 percursos simples e 0 percursos compostos
-    > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
-    > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-  > centro de Lisboa para Viana do Castelo, com 390800 metros, com 50 de declive, com 2 percursos simples e 0 percursos compostos
-    > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-    > A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
-
- ---------------------------------------------------------------- 
-Teste ao clone
-> sul de Sagres para Viana do Castelo, com 735800 metros, com 50 de declive, com 0 percursos simples e 2 percursos compostos
-  > ss de Sagres para Lisboa, com 345000 metros, com 0 de declive, com 2 percursos simples e 0 percursos compostos
-    > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
-    > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-  > centro de Lisboa para Viana do Castelo, com 390800 metros, com 50 de declive, com 2 percursos simples e 0 percursos compostos
-    > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-    > A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
-
-> sul de Sagres para Viana do Castelo, com 735800 metros, com 50 de declive, com 0 percursos simples e 2 percursos compostos
-  > ss de Sagres para Lisboa, com 345000 metros, com 0 de declive, com 2 percursos simples e 0 percursos compostos
-    > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
-    > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-  > centro de Lisboa para Viana do Castelo, com 390800 metros, com 50 de declive, com 2 percursos simples e 0 percursos compostos
-    > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-    > A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
-
-Adicionado w de Viana do Castelo para Caminha, com 70000 metros, com 20 de declive, com 1 percursos simples e 0 percursos compostos ao pc original, deu -> true
-
-> sul de Sagres para Viana do Castelo, com 735800 metros, com 50 de declive, com 0 percursos simples e 2 percursos compostos
-  > ss de Sagres para Lisboa, com 345000 metros, com 0 de declive, com 2 percursos simples e 0 percursos compostos
-    > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
-    > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-  > centro de Lisboa para Viana do Castelo, com 390800 metros, com 50 de declive, com 2 percursos simples e 0 percursos compostos
-    > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-    > A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
-
- ---------------------------------------------------------------- 
-Teste ao subidaAcumulada
-> sul de Sagres para Caminha, com 805800 metros, com 70 de declive, com 0 percursos simples e 3 percursos compostos
-  > ss de Sagres para Lisboa, com 345000 metros, com 0 de declive, com 2 percursos simples e 0 percursos compostos
-    > A23 de Sagres para Faro, com 67000 metros e com -10 de declive
-    > A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
-  > centro de Lisboa para Viana do Castelo, com 390800 metros, com 50 de declive, com 2 percursos simples e 0 percursos compostos
-    > A1 de Lisboa para Porto, com 317000 metros e com 20 de declive
-    > A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
-  > w de Viana do Castelo para Caminha, com 70000 metros, com 20 de declive, com 1 percursos simples e 0 percursos compostos
-    > vVC de Viana do Castelo para Caminha, com 70000 metros e com 20 de declive
-
-sul de Sagres para Caminha, com 805800 metros, com 70 de declive, com 0 percursos simples e 3 percursos compostos tem uma subida acumulada de -> 80
- */

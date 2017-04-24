@@ -2,6 +2,8 @@ package tps.tp2;
 
 import tps.tp2.pack2Percursos.PercursoSimples;
 
+import java.lang.reflect.Array;
+
 public interface Path {
     final static String INVALID_DISTANCE = "Invalid distance";
     final static String INVALID_PATH_NAME = "Invalid path name";
@@ -13,41 +15,54 @@ public interface Path {
     public String get_beginning();
     public String get_ending();
 
-    public static boolean validate(Path p1, Path p2) {
-        return p1.get_ending().equalsIgnoreCase(p2.get_beginning());
+    public static boolean validate(String location) {
+        if (location.trim().length() == 0) {
+            return false;
+        }
+
+        return location.matches("^[0-9A-Za-z\\s]+$");
     }
 
-    public static Path[] validate(Path[] paths, int max) throws IllegalArgumentException {
+    public static boolean validate(Path p1, Path p2) {
+        return (
+                p1.get_ending().equalsIgnoreCase(p2.get_beginning()) &&
+                !p1.get_ending().equalsIgnoreCase(p2.get_ending()) &&
+                !p1.get_beginning().equalsIgnoreCase(p2.get_beginning())
+        );
+    }
 
-        if (paths.length == 0 || paths.length > max) {
+    public static boolean validate(Path[] paths, int max) throws IllegalArgumentException {
+
+//        paths.length == 0
+        if (paths.length > max) {
             throw new IllegalArgumentException(INVALID_QUANTITY);
         }
 
-        String[] beginnings = new String[paths.length];
-        String[] endings = new String[paths.length];
+        for (int i = 1; i < paths.length; i++) {
 
-        for (int i = 0; i < paths.length; i++) {
-
-            if (i < paths.length - 1 && !Path.validate(paths[i], paths[i + 1])) {
+            if (!Path.validate(paths[i - 1], paths[i])) {
                 throw new IllegalArgumentException(INVALID_SEQUENCE);
             }
 
-            beginnings[i] = paths[i].get_beginning();
-            endings[i] = paths[i].get_ending();
+            String beg = paths[i].get_beginning();
+            String end = paths[i].get_ending();
 
             for (int j = i + 1; j < paths.length; j++) {
-                if (beginnings[i].equalsIgnoreCase(paths[j].get_beginning())
-                        || endings[i].equalsIgnoreCase(paths[j].get_ending())
-                        ) {
+
+                if (beg.equalsIgnoreCase(paths[j].get_beginning())) {
+                    throw new IllegalArgumentException(REPEATED_LOCATIONS);
+                }
+
+                if (end.equalsIgnoreCase(paths[j].get_ending())) {
                     throw new IllegalArgumentException(REPEATED_LOCATIONS);
                 }
             }
         }
 
-        return paths;
+        return true;
     }
 
-    public static Path[] insert(Path[] paths, int max, int idx, PercursoSimples path) {
+    public static Path[] insert(Path[] paths, int max, int idx, Path path) {
         int n = paths.length;
 
         if (n + 1 > max) {
@@ -58,7 +73,7 @@ public interface Path {
             idx = n;
         }
 
-        Path[] new_paths = new PercursoSimples[++n];
+        Path[] new_paths = new Path[++n];
 
         for (int i = 0, j = 0; i < n; i++) {
             if (i == idx) {
@@ -69,8 +84,7 @@ public interface Path {
             new_paths[i] = paths[j++];
         }
 
-        Path.validate(new_paths, max);
-        return new_paths;
+        return  new_paths;
     }
 
     /**
@@ -104,14 +118,29 @@ public interface Path {
             old_paths[i - n] = paths[i];
         }
 
-        if (factor) {
-            paths = new_paths;
-            return old_paths;
-        }
-        else {
-            paths = old_paths;
-            return new_paths;
+        return factor ? old_paths : new_paths;
+    }
+
+    public static boolean validate(Path[] p1, int max1, Path[] p2, int max2) {
+        boolean eval = true;
+
+        eval = Path.validate(p1, max1);
+        eval = Path.validate(p2, max2);
+
+        if (!eval) {
+            return false;
         }
 
+        for (int i = 0; i < p1.length; i++) {
+            for (int j = 0; j < p1.length; j++) {
+                eval = Path.validate(p1[i], p2[j]);
+
+                if (!eval) {
+                     return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

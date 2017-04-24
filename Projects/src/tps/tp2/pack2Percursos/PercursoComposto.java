@@ -76,7 +76,7 @@ public class PercursoComposto implements Path {
 	 *            Percurso a copiar
 	 */
 	public PercursoComposto(PercursoComposto pc) {
-		this(pc.getNome(), pc.getPercursos(), pc.getPercursos().length);
+		this(pc.getNome(), pc.percursos, pc.maxPercursos);
 	}
 
 	/**
@@ -95,7 +95,26 @@ public class PercursoComposto implements Path {
 	 * @return True se adicionou
 	 */
 	public boolean adicionarPercursoNoFinal(PercursoSimples percurso) {
-		this.percursos = (PercursoSimples[]) Path.insert(this.percursos, this.maxPercursos, -1, percurso);
+		Path[] path = Path.insert(
+				this.percursos.clone(),
+				this.maxPercursos,
+				-1,
+				percurso
+				);
+
+		try {
+			Path.validate(path, this.maxPercursos);
+		}
+		catch (Exception e) {
+			return false;
+		}
+
+		this.percursos = new PercursoSimples[path.length];
+
+		for (int i = 0; i < path.length; i++) {
+			this.percursos[i] = (PercursoSimples) path[i];
+		}
+
 		return true;
 	}
 
@@ -108,7 +127,26 @@ public class PercursoComposto implements Path {
 	 * @return True se adicionou
 	 */
 	public boolean adicionarPercursoNoInicio(PercursoSimples percurso) {
-		this.percursos = (PercursoSimples[]) Path.insert(this.percursos, this.maxPercursos, 0, percurso);
+		Path[] path = Path.insert(
+				this.percursos.clone(),
+				this.maxPercursos,
+				0,
+				percurso
+		);
+
+		try {
+			Path.validate(path, this.maxPercursos);
+		}
+		catch (Exception e) {
+			return false;
+		}
+
+		this.percursos = new PercursoSimples[path.length];
+
+		for (int i = 0; i < path.length; i++) {
+			this.percursos[i] = (PercursoSimples) path[i];
+		}
+
 		return true;
 	}
 
@@ -234,10 +272,6 @@ public class PercursoComposto implements Path {
 		}
 
 		return d;
-	}
-
-	private PercursoSimples[] getPercursos() {
-		return this.percursos;
 	}
 
 	/**
