@@ -164,10 +164,24 @@ public class PercursoComposto implements Path {
 	 *         corrente
 	 */
 	public PercursoComposto clone() {
+		int size = this.percursosCompostos.length;
+		PercursoComposto[] pc = new PercursoComposto[size];
+
+		for (int i = 0 ; i < pc.length; i++) {
+			pc[i] = new PercursoComposto(this.percursosCompostos[i]);
+		}
+
+		size = this.percursosSimples.length;
+		PercursoSimples[] ps = new PercursoSimples[size];
+
+		for (int i = 0; i < ps.length; i++) {
+			ps[i] = this.percursosSimples[i];
+		}
+
 		return new PercursoComposto(
 				this.nome,
-				this.percursosSimples,
-				this.percursosCompostos,
+				ps,
+				pc,
 				this.maxPercursos
 		);
 	}
@@ -269,7 +283,23 @@ public class PercursoComposto implements Path {
 	 *         composto
 	 */
 	private String[] getLocalidades() {
-        throw new NotImplementedException();
+		String locals = this.percursosSimples[0].get_beginning();
+
+		for (int i = 0; i < this.percursosSimples.length; i++) {
+			locals = locals.concat(String.format("_%s", this.percursosSimples[0].get_ending()));
+		}
+
+		for (int i = 0; i < this.percursosCompostos.length; i++) {
+			String[] collection = this.percursosCompostos[i].getLocalidades();;
+
+			for (int j = 0; j < collection.length; j++) {
+				if (locals.indexOf(collection[j]) == -1) {
+					locals = locals.concat(String.format("_%s", collection[j]));
+				}
+			}
+		}
+
+		return locals.split("_");
 	}
 
 	/**
@@ -281,13 +311,7 @@ public class PercursoComposto implements Path {
 	 *         composto
 	 */
 	private int getNumLocalidades() {
-		int sum = this.percursosSimples.length;
-
-		for (int i = 0; i < this.percursosCompostos.length; i++) {
-		    sum += this.percursosCompostos[i].getNumLocalidades();
-        }
-
-        return sum;
+		return this.getLocalidades().length;
 	}
 
 	/**
