@@ -130,14 +130,15 @@ public interface Path {
                 n = i;
                 break;
             }
+
         }
 
         if (n == -1) {
             return null;
         }
 
-        Path[] new_paths = new PercursoSimples[n];
-        Path[] old_paths = new PercursoSimples[n];
+        Path[] new_paths = new Path[n];
+        Path[] old_paths = new Path[paths.length - n];
 
         for (int i = 0; i < n; i++) {
             new_paths[i] = paths[i];

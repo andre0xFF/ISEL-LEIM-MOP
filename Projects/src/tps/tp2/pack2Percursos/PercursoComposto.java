@@ -143,9 +143,39 @@ public class PercursoComposto implements Path {
 	 * @return Os percursos removido ou null caso nao remova nada
 	 */
 	public PercursoSimples[] removerPercursosNoFimDesde(String localidade) {
-		Path[] aux = this.percursos;
-		this.percursos = (PercursoSimples[]) Path.remove(aux, true, localidade);
-		return (PercursoSimples[]) Path.remove(aux, false, localidade);
+		return this.remove(localidade, false);
+	}
+
+	private PercursoSimples[] remove(String local, boolean factor) {
+		if (this.percursos.length == 1) {
+			return null;
+		}
+
+		final Path[] clone = this.percursos.clone();
+		final Path[] aux1 = Path.remove(clone, factor, local);
+		final Path[] aux2 = Path.remove(clone, !factor, local);
+
+		if (aux1 == null) {
+			return null;
+		}
+
+		if (aux1.length == this.percursos.length) {
+			return null;
+		}
+
+		this.percursos = new PercursoSimples[aux1.length];
+
+		for (int i = 0; i < aux1.length; i++) {
+			this.percursos[i] = (PercursoSimples) aux1[i];
+		}
+
+		PercursoSimples[] removed_paths = new PercursoSimples[aux2.length];
+
+		for (int i = 0; i < aux2.length; i++) {
+			removed_paths[i] = (PercursoSimples) aux2[i];
+		}
+
+		return removed_paths;
 	}
 
 	/**
@@ -159,9 +189,7 @@ public class PercursoComposto implements Path {
 	 * @return Os percursos removido ou null caso nao remova nada
 	 */
 	public PercursoSimples[] removerPercursosNoInicioAte(String localidade) {
-		Path[] aux = this.percursos;
-		this.percursos = (PercursoSimples[]) Path.remove(aux, false, localidade);
-		return (PercursoSimples[]) Path.remove(aux, true, localidade);
+		return this.remove(localidade, true);
 	}
 
 	/**

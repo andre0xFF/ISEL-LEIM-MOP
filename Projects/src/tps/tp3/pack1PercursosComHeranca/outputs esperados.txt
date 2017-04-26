@@ -1,0 +1,653 @@
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+a - Testar os contrutores
+b - Testar getNumLocalidades
+c - Testar getLocalidades
+d - Testar Declive Distancia e SubidaAcumulada
+e - Testar GetIdxLocalidadeEmInicio
+f - Testar AdicionarPercursoNoInicio
+g - Testar AdicionarPercursoNoFinal
+h - Testar Clone
+i - Testar RemoverNoFinalDesde
+j - Testar RemoverNoInicioAte
+k - Testes extra
+x - Terminar
+a
+
+=====================================================================================
+Teste aos construtores ==============================================================
+
+ ---------------------------------------------------------------- 
+Teste ao construtor com PercursoSimples
+> percurso composto PC1 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+
+ ---------------------------------------------------------------- 
+Teste ao construtor com PercursoComposto
+> percurso composto PC2 de Faro para Coimbra, com 482000 metros e com 20 de declive
+  > percurso composto PC2 de Faro para Coimbra, com 482000 metros e com 20 de declive
+    > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+
+ ---------------------------------------------------------------- 
+Teste ao construtor com arrays de PercursoSimple e PercursoComposto
+> percurso composto PC3 de Sagres para Viana do Castelo, com 735800 metros e com 60 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso composto PCAUX de Coimbra para Viana do Castelo, com 186800 metros e com 50 de declive
+    > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+    > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+a - Testar os contrutores
+b - Testar getNumLocalidades
+c - Testar getLocalidades
+d - Testar Declive Distancia e SubidaAcumulada
+e - Testar GetIdxLocalidadeEmInicio
+f - Testar AdicionarPercursoNoInicio
+g - Testar AdicionarPercursoNoFinal
+h - Testar Clone
+i - Testar RemoverNoFinalDesde
+j - Testar RemoverNoInicioAte
+k - Testes extra
+x - Terminar
+b
+
+=====================================================================================
+Teste aos getNumLocalidades =========================================================
+
+ ---------------------------------------------------------------- 
+> percurso composto PC1 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+nº de localidades -> 2
+
+ ---------------------------------------------------------------- 
+> percurso composto PC2 de Faro para Coimbra, com 482000 metros e com 20 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+nº de localidades -> 3
+
+ ---------------------------------------------------------------- 
+> percurso composto PC3 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso composto PC1 de Faro para Lisboa, com 278000 metros e com 10 de declive
+    > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+nº de localidades -> 2
+
+ ---------------------------------------------------------------- 
+> percurso composto PC4 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso composto PC3 de Faro para Lisboa, com 278000 metros e com 10 de declive
+    > percurso composto PC1 de Faro para Lisboa, com 278000 metros e com 10 de declive
+      > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+nº de localidades -> 2
+
+ ---------------------------------------------------------------- 
+> percurso composto PC22 de Porto para Valença, com 124800 metros e com 60 de declive
+  > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+  > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+nº de localidades -> 3
+
+ ---------------------------------------------------------------- 
+> percurso composto PC5 de Sagres para Valença, com 786800 metros e com 90 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso composto PC2 de Faro para Coimbra, com 482000 metros e com 20 de declive
+    > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso composto PC22 de Porto para Valença, com 124800 metros e com 60 de declive
+    > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+    > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+nº de localidades -> 7
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+a - Testar os contrutores
+b - Testar getNumLocalidades
+c - Testar getLocalidades
+d - Testar Declive Distancia e SubidaAcumulada
+e - Testar GetIdxLocalidadeEmInicio
+f - Testar AdicionarPercursoNoInicio
+g - Testar AdicionarPercursoNoFinal
+h - Testar Clone
+i - Testar RemoverNoFinalDesde
+j - Testar RemoverNoInicioAte
+k - Testes extra
+x - Terminar
+c
+
+=====================================================================================
+Teste aos getLocalidades ============================================================
+
+ ---------------------------------------------------------------- 
+> percurso composto PC1 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+Localidades -> [Faro, Lisboa]
+
+ ---------------------------------------------------------------- 
+> percurso composto PC2 de Faro para Coimbra, com 482000 metros e com 20 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+Localidades -> [Faro, Lisboa, Coimbra]
+
+ ---------------------------------------------------------------- 
+> percurso composto PC3 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso composto PC1 de Faro para Lisboa, com 278000 metros e com 10 de declive
+    > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+Localidades -> [Faro, Lisboa]
+
+ ---------------------------------------------------------------- 
+> percurso composto PC4 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso composto PC3 de Faro para Lisboa, com 278000 metros e com 10 de declive
+    > percurso composto PC1 de Faro para Lisboa, com 278000 metros e com 10 de declive
+      > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+Localidades -> [Faro, Lisboa]
+
+ ---------------------------------------------------------------- 
+> percurso composto PC22 de Porto para Valença, com 124800 metros e com 60 de declive
+  > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+  > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+Localidades -> [Porto, Viana do Castelo, Valença]
+
+ ---------------------------------------------------------------- 
+> percurso composto PC5 de Sagres para Valença, com 786800 metros e com 90 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso composto PC2 de Faro para Coimbra, com 482000 metros e com 20 de declive
+    > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso composto PC22 de Porto para Valença, com 124800 metros e com 60 de declive
+    > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+    > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+Localidades -> [Sagres, Faro, Lisboa, Coimbra, Porto, Viana do Castelo, Valença]
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+a - Testar os contrutores
+b - Testar getNumLocalidades
+c - Testar getLocalidades
+d - Testar Declive Distancia e SubidaAcumulada
+e - Testar GetIdxLocalidadeEmInicio
+f - Testar AdicionarPercursoNoInicio
+g - Testar AdicionarPercursoNoFinal
+h - Testar Clone
+i - Testar RemoverNoFinalDesde
+j - Testar RemoverNoInicioAte
+k - Testes extra
+x - Terminar
+d
+
+...
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+a - Testar os contrutores
+b - Testar getNumLocalidades
+c - Testar getLocalidades
+d - Testar Declive Distancia e SubidaAcumulada
+e - Testar GetIdxLocalidadeEmInicio
+f - Testar AdicionarPercursoNoInicio
+g - Testar AdicionarPercursoNoFinal
+h - Testar Clone
+i - Testar RemoverNoFinalDesde
+j - Testar RemoverNoInicioAte
+k - Testes extra
+x - Terminar
+e
+
+=====================================================================================
+Teste aos getIdxLocalidadeEmInicio ==================================================
+
+ ---------------------------------------------------------------- 
+> percurso composto PC1 de Faro para Coimbra, com 482000 metros e com 20 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+
+getIdxLocalidadeEmInicio Faro -> 0
+
+getIdxLocalidadeEmInicio Lisboa -> 1
+
+getIdxLocalidadeEmInicio Coimbra -> -1
+
+ ---------------------------------------------------------------- 
+> percurso composto PC2 de Faro para Coimbra, com 482000 metros e com 20 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+
+getIdxLocalidadeEmInicio Faro -> 0
+
+ ---------------------------------------------------------------- 
+> percurso composto PC3 de Faro para Coimbra, com 482000 metros e com 20 de declive
+  > percurso composto PC1 de Faro para Coimbra, com 482000 metros e com 20 de declive
+    > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+
+getIdxLocalidadeEmInicio Faro -> 0
+
+ ---------------------------------------------------------------- 
+> percurso composto PC4 de Faro para Coimbra, com 482000 metros e com 20 de declive
+  > percurso composto PC3 de Faro para Coimbra, com 482000 metros e com 20 de declive
+    > percurso composto PC1 de Faro para Coimbra, com 482000 metros e com 20 de declive
+      > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+      > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+
+getIdxLocalidadeEmInicio Faro -> 0
+
+ ---------------------------------------------------------------- 
+> percurso composto PC5 de Sagres para Valença, com 786800 metros e com 90 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso composto PC2 de Faro para Coimbra, com 482000 metros e com 20 de declive
+    > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso composto PC22 de Porto para Valença, com 124800 metros e com 60 de declive
+    > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+    > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+getIdxLocalidadeEmInicio Faro -> 1
+
+getIdxLocalidadeEmInicio Lisboa -> 1
+
+getIdxLocalidadeEmInicio Porto -> 3
+
+getIdxLocalidadeEmInicio Viana do Castelo -> 3
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+a - Testar os contrutores
+b - Testar getNumLocalidades
+c - Testar getLocalidades
+d - Testar Declive Distancia e SubidaAcumulada
+e - Testar GetIdxLocalidadeEmInicio
+f - Testar AdicionarPercursoNoInicio
+g - Testar AdicionarPercursoNoFinal
+h - Testar Clone
+i - Testar RemoverNoFinalDesde
+j - Testar RemoverNoInicioAte
+k - Testes extra
+x - Terminar
+f
+
+=====================================================================================
+Teste ao adicionarPercursoNoInicio ==================================================
+
+Original:
+> percurso composto PC1 de Coimbra para Valença, com 237800 metros e com 80 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+  > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+ ---------------------------------------------------------------- 
+Adicionar no início:
+> percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+
+Resultado:
+> percurso composto PC1 de Lisboa para Valença, com 441800 metros e com 90 de declive
+  > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+  > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+ ---------------------------------------------------------------- 
+Adicionar no início:
+> percurso composto PC1 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+
+Resultado:
+> percurso composto PC1 de Sagres para Valença, com 786800 metros e com 90 de declive
+  > percurso composto PC1 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+    > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+    > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+  > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+ ---------------------------------------------------------------- 
+Teste ao adicionar Percurso No Inicio com erro
+Adicionar no início:
+> percurso composto PC1 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+
+A adição de percurso composto PC1 de Sagres para Lisboa, com 345000 metros e com 0 de declive deu -> false
+
+> percurso composto PC1 de Sagres para Valença, com 786800 metros e com 90 de declive
+  > percurso composto PC1 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+    > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+    > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+  > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+a - Testar os contrutores
+b - Testar getNumLocalidades
+c - Testar getLocalidades
+d - Testar Declive Distancia e SubidaAcumulada
+e - Testar GetIdxLocalidadeEmInicio
+f - Testar AdicionarPercursoNoInicio
+g - Testar AdicionarPercursoNoFinal
+h - Testar Clone
+i - Testar RemoverNoFinalDesde
+j - Testar RemoverNoInicioAte
+k - Testes extra
+x - Terminar
+g
+
+=====================================================================================
+Teste ao adicionarPercursoNoFinal ===================================================
+
+Original:
+> percurso composto PC1 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+
+ ---------------------------------------------------------------- 
+Adicionar no Final:
+> percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+
+A adição de percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive deu -> true
+
+> percurso composto PC1 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+
+ ---------------------------------------------------------------- 
+Teste ao adicionar Percurso No Final com erro.
+Adicionar:
+> percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+
+A adição de percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive deu -> false
+
+> percurso composto PC1 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+
+ ---------------------------------------------------------------- 
+Adicionar no Final:
+> percurso composto PC2 de Lisboa para Porto, com 317000 metros e com 30 de declive
+  > percurso composto PC2Aux de Lisboa para Porto, com 317000 metros e com 30 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+    > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+
+A adição de percurso composto PC2 de Lisboa para Porto, com 317000 metros e com 30 de declive deu -> true
+
+> percurso composto PC1 de Sagres para Porto, com 662000 metros e com 30 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso composto PC2 de Lisboa para Porto, com 317000 metros e com 30 de declive
+    > percurso composto PC2Aux de Lisboa para Porto, com 317000 metros e com 30 de declive
+      > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+      > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+
+ ---------------------------------------------------------------- 
+Adicionar no Final:
+> percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+
+A adição de percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive deu -> true
+
+> percurso composto PC1 de Sagres para Viana do Castelo, com 735800 metros e com 60 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso composto PC2 de Lisboa para Porto, com 317000 metros e com 30 de declive
+    > percurso composto PC2Aux de Lisboa para Porto, com 317000 metros e com 30 de declive
+      > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+      > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+
+ ---------------------------------------------------------------- 
+Adicionar no Final:
+> percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+A adição de percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive deu -> true
+
+> percurso composto PC1 de Sagres para Valença, com 786800 metros e com 90 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso composto PC2 de Lisboa para Porto, com 317000 metros e com 30 de declive
+    > percurso composto PC2Aux de Lisboa para Porto, com 317000 metros e com 30 de declive
+      > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+      > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+  > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+ ---------------------------------------------------------------- 
+Adicionar no Final com erro:
+> percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+A adição de percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive deu -> false
+
+> percurso composto PC1 de Sagres para Valença, com 786800 metros e com 90 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso composto PC2 de Lisboa para Porto, com 317000 metros e com 30 de declive
+    > percurso composto PC2Aux de Lisboa para Porto, com 317000 metros e com 30 de declive
+      > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+      > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+  > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+a - Testar os contrutores
+b - Testar getNumLocalidades
+c - Testar getLocalidades
+d - Testar Declive Distancia e SubidaAcumulada
+e - Testar GetIdxLocalidadeEmInicio
+f - Testar AdicionarPercursoNoInicio
+g - Testar AdicionarPercursoNoFinal
+h - Testar Clone
+i - Testar RemoverNoFinalDesde
+j - Testar RemoverNoInicioAte
+k - Testes extra
+x - Terminar
+h
+
+=====================================================================================
+Teste aos clone =====================================================================
+
+Original:
+> percurso composto PC5 de Sagres para Valença, com 786800 metros e com 90 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso composto PC2 de Faro para Coimbra, com 482000 metros e com 20 de declive
+    > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso composto PC22 de Porto para Valença, com 124800 metros e com 60 de declive
+    > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+    > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+ ---------------------------------------------------------------- 
+Clone:
+> percurso composto PC5 de Sagres para Valença, com 786800 metros e com 90 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso composto PC2 de Faro para Coimbra, com 482000 metros e com 20 de declive
+    > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso composto PC22 de Porto para Valença, com 124800 metros e com 60 de declive
+    > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+    > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+Alterar percurso original com adicionar no final de pc22 dentro do original:
+> percurso simples ww de Valença para Braga, com 87000 metros e com 30 de declive
+
+PC original alterado:
+> percurso composto PC5 de Sagres para Braga, com 873800 metros e com 120 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso composto PC2 de Faro para Coimbra, com 482000 metros e com 20 de declive
+    > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso composto PC22 de Porto para Braga, com 211800 metros e com 90 de declive
+    > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+    > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+    > percurso simples ww de Valença para Braga, com 87000 metros e com 30 de declive
+
+PC clone (não deve estar alterado:
+> percurso composto PC5 de Sagres para Valença, com 786800 metros e com 90 de declive
+  > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso composto PC2 de Faro para Coimbra, com 482000 metros e com 20 de declive
+    > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso composto PC22 de Porto para Valença, com 124800 metros e com 60 de declive
+    > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+    > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+a - Testar os contrutores
+b - Testar getNumLocalidades
+c - Testar getLocalidades
+d - Testar Declive Distancia e SubidaAcumulada
+e - Testar GetIdxLocalidadeEmInicio
+f - Testar AdicionarPercursoNoInicio
+g - Testar AdicionarPercursoNoFinal
+h - Testar Clone
+i - Testar RemoverNoFinalDesde
+j - Testar RemoverNoInicioAte
+k - Testes extra
+x - Terminar
+i
+
+=====================================================================================
+Teste ao removerNoFinalDesde ========================================================
+
+Percurso original:
+> percurso composto PCA de Sagres para Valença, com 786800 metros e com 90 de declive
+  > percurso composto PC111 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+    > percurso composto PC11 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+      > percurso composto PC1 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+        > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+        > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso composto PC2 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso composto PC45 de Porto para Valença, com 124800 metros e com 60 de declive
+    > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+    > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+ ---------------------------------------------------------------- 
+Com remoção no final desde -> Porto
+> percurso composto PCA de Sagres para Porto, com 662000 metros e com 30 de declive
+  > percurso composto PC111 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+    > percurso composto PC11 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+      > percurso composto PC1 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+        > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+        > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso composto PC2 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+
+ ---------------------------------------------------------------- 
+Com remoção no final desde -> Lisboa
+> percurso composto PCA de Sagres para Lisboa, com 345000 metros e com 0 de declive
+  > percurso composto PC111 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+    > percurso composto PC11 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+      > percurso composto PC1 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+        > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+        > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+
+ ---------------------------------------------------------------- 
+Com remoção no final desde -> Faro
+> percurso composto PCA de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso composto PC111 de Sagres para Faro, com 67000 metros e com -10 de declive
+    > percurso composto PC11 de Sagres para Faro, com 67000 metros e com -10 de declive
+      > percurso composto PC1 de Sagres para Faro, com 67000 metros e com -10 de declive
+        > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+
+ ---------------------------------------------------------------- 
+Com remoção no final desde -> Sagres
+> percurso composto PCA de Sagres para Faro, com 67000 metros e com -10 de declive
+  > percurso composto PC111 de Sagres para Faro, com 67000 metros e com -10 de declive
+    > percurso composto PC11 de Sagres para Faro, com 67000 metros e com -10 de declive
+      > percurso composto PC1 de Sagres para Faro, com 67000 metros e com -10 de declive
+        > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+a - Testar os contrutores
+b - Testar getNumLocalidades
+c - Testar getLocalidades
+d - Testar Declive Distancia e SubidaAcumulada
+e - Testar GetIdxLocalidadeEmInicio
+f - Testar AdicionarPercursoNoInicio
+g - Testar AdicionarPercursoNoFinal
+h - Testar Clone
+i - Testar RemoverNoFinalDesde
+j - Testar RemoverNoInicioAte
+k - Testes extra
+x - Terminar
+j
+
+=====================================================================================
+Teste ao removerNoInicioAte =========================================================
+
+Percurso original:
+> percurso composto PCA de Aljezur para Valença, com 829700 metros e com 70 de declive
+  > percurso simples A23 de Aljezur para Sagres, com 42900 metros e com -20 de declive
+  > percurso composto PC111 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+    > percurso composto PC11 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+      > percurso composto PC1 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+        > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+        > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso composto PC2 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso composto PC45 de Porto para Valença, com 124800 metros e com 60 de declive
+    > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+    > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+ ---------------------------------------------------------------- 
+Com remoção no início até -> Sagres
+> percurso composto PCA de Sagres para Valença, com 786800 metros e com 90 de declive
+  > percurso composto PC111 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+    > percurso composto PC11 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+      > percurso composto PC1 de Sagres para Lisboa, com 345000 metros e com 0 de declive
+        > percurso simples A23 de Sagres para Faro, com 67000 metros e com -10 de declive
+        > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso composto PC2 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso composto PC45 de Porto para Valença, com 124800 metros e com 60 de declive
+    > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+    > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+ ---------------------------------------------------------------- 
+Com remoção no início até -> Faro
+> percurso composto PCA de Faro para Valença, com 719800 metros e com 100 de declive
+  > percurso composto PC111 de Faro para Lisboa, com 278000 metros e com 10 de declive
+    > percurso composto PC11 de Faro para Lisboa, com 278000 metros e com 10 de declive
+      > percurso composto PC1 de Faro para Lisboa, com 278000 metros e com 10 de declive
+        > percurso simples A2 de Faro para Lisboa, com 278000 metros e com 10 de declive
+  > percurso composto PC2 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso composto PC45 de Porto para Valença, com 124800 metros e com 60 de declive
+    > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+    > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+ ---------------------------------------------------------------- 
+Com remoção no início até -> Lisboa
+> percurso composto PCA de Lisboa para Valença, com 441800 metros e com 90 de declive
+  > percurso composto PC2 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+    > percurso simples A1 1 de Lisboa para Coimbra, com 204000 metros e com 10 de declive
+  > percurso simples A1 2 de Coimbra para Porto, com 113000 metros e com 20 de declive
+  > percurso composto PC45 de Porto para Valença, com 124800 metros e com 60 de declive
+    > percurso simples A28 de Porto para Viana do Castelo, com 73800 metros e com 30 de declive
+    > percurso simples N13 de Viana do Castelo para Valença, com 51000 metros e com 30 de declive
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+a - Testar os contrutores
+b - Testar getNumLocalidades
+c - Testar getLocalidades
+d - Testar Declive Distancia e SubidaAcumulada
+e - Testar GetIdxLocalidadeEmInicio
+f - Testar AdicionarPercursoNoInicio
+g - Testar AdicionarPercursoNoFinal
+h - Testar Clone
+i - Testar RemoverNoFinalDesde
+j - Testar RemoverNoInicioAte
+k - Testes extra
+x - Terminar
+x
+
+Bye...
