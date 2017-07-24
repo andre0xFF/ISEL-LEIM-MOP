@@ -1,0 +1,19 @@
+JFrame frame = new JFrame("Hello world");
+
+frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+frame.setVisible(true);
+
+new Thread(this).start();
+
+
+JFrame frame = new JFrame();
+frame.setSize(600, 600);
+frame.getContentPane().add(new Work());
+frame.setLocationRelativeTo(null);
+frame.setBackground(Color.LIGHT_GRAY);
+frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+frame.setVisible(true);
+
+model: classes that deal with databases, data handling classes, back-end, should never reference stuff in view
+controller: gets stuff from view events and dumps to models, central communications
+view: calls controler when wants to add data to model

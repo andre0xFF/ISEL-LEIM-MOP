@@ -26,7 +26,7 @@ public class P01WorkWithInts {
 	/**
 	 * Recebe um inteiro e deve devolve-lo, mas com os digitos zero removidos.
 	 * No caso de receber zero devera devolver esse mesmo valor
-	 * 
+	 *
 	 * @param n o numero a processar
 	 * @return o numero sem digitos zero
 	 */
@@ -45,7 +45,7 @@ public class P01WorkWithInts {
 		// (except left side signal - factor)
 		n = Integer.valueOf(String.valueOf(digits[0 + Math.abs(factor)]));
 
-		// initialize new digits array with thr proper size
+		// initialize new digits array with the proper size
 		new_digits = new char[digits.length - 1 + factor];
 
 		number = "";
@@ -106,7 +106,7 @@ public class P01WorkWithInts {
 	 * String.valueOf(int) com inteiros so com um digito. Em caso de input
 	 * invalido, deve lancar a excecao IllegalArgumentException com a indicacao
 	 * clara do erro.
-	 * 
+	 *
 	 * @param n Inteiro positivo
 	 * @return Numero inteiro positivo em forma de string
 	 */
