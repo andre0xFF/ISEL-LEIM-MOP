@@ -9,7 +9,7 @@ public interface Path {
     final static String INVALID_PATH_NAME = "Invalid path name";
     final static String INVALID_LOCATION = "Invalid location name";
     final static String INVALID_SEQUENCE = "Beginning and end sequence does not match";
-    final static String INVALID_QUANTITY = "Invalid paths quantity";
+    final static String INVALID_QUANTITY = "Invalid paths QUANTITY";
     final static String REPEATED_LOCATIONS = "There are paths with repeated locations";
 
     public String get_beginning();

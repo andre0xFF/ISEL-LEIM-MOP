@@ -8,7 +8,7 @@ import java.awt.LayoutManager2;
 
 /**
  * Proportional layout - E' como um border Layout mas com proporcoes. Por
- * exemplo: a parte north tem 20% de extensao vertical... Os componentes sao
+ * exemplo: a parte NORTH tem 20% de extensao vertical... Os componentes sao
  * entao colocados de acordo com a proporcionalidade indicada. Este layout
  * considera os insets do container e pode adicionar seus insets que sao
  * proporcionais. Considera hgap e vgap, como pixels or proporcionais
@@ -273,7 +273,7 @@ public class ProportionalLayout implements LayoutManager2 {
 		// setSizes(parent);
 		if (center != null) {
 			dim = center.getPreferredSize();
-			System.out.println("prefered size of center component -> " + dim);
+			System.out.println("prefered size of CENTER component -> " + dim);
 			dim.width /= (1 - insetLeft - insetRight - zonesetLeft - zonesetRight);
 			dim.height /= (1 - insetTop - insetBottom - zonesetTop - zonesetBottom);
 		}
@@ -294,7 +294,7 @@ public class ProportionalLayout implements LayoutManager2 {
 		// setSizes(parent);
 		if (center != null) {
 			dim = center.getMinimumSize();
-			System.out.println("minimum size of center component -> " + dim);
+			System.out.println("minimum size of CENTER component -> " + dim);
 			dim.width /= (1 - insetLeft - insetRight - zonesetLeft - zonesetRight);
 			dim.height /= (1 - insetTop - insetBottom - zonesetTop - zonesetBottom);
 		}

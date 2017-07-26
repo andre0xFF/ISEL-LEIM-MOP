@@ -143,7 +143,7 @@ public class P06BitmapTransform {
 		// set frame size
 		frame.setSize(image.getWidth() + 50, image.getHeight() + 80);
 
-		// center the frame
+		// CENTER the frame
 		frame.setLocationRelativeTo(null);
 
 		// show the image inside a label

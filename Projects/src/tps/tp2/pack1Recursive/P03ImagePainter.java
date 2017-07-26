@@ -145,15 +145,15 @@ public class P03ImagePainter {
 		// desprezar o canal Alpha (transpar�ncia) em todas as cores utilizadas
 		int paintColorRGB = clearAlphaChannel(paintColor.getRGB());
 
-//		image.setRGB(x - 1, y - 1, paintColorRGB);
-//		image.setRGB(x + 0, y - 1, paintColorRGB);
-//		image.setRGB(x + 1, y - 1, paintColorRGB);
-//		image.setRGB(x - 1, y + 0, paintColorRGB);
+//		image.setRGB(X - 1, Y - 1, paintColorRGB);
+//		image.setRGB(X + 0, Y - 1, paintColorRGB);
+//		image.setRGB(X + 1, Y - 1, paintColorRGB);
+//		image.setRGB(X - 1, Y + 0, paintColorRGB);
 		image.setRGB(x + 0, y + 0, paintColorRGB);
-//		image.setRGB(x + 1, y + 0, paintColorRGB);
-//		image.setRGB(x - 1, y + 1, paintColorRGB);
-//		image.setRGB(x + 0, y + 1, paintColorRGB);
-//		image.setRGB(x + 1, y + 1, paintColorRGB);
+//		image.setRGB(X + 1, Y + 0, paintColorRGB);
+//		image.setRGB(X - 1, Y + 1, paintColorRGB);
+//		image.setRGB(X + 0, Y + 1, paintColorRGB);
+//		image.setRGB(X + 1, Y + 1, paintColorRGB);
 	}
 
 	/**
@@ -257,8 +257,8 @@ public class P03ImagePainter {
 				// System.out.println("Image xi and yi: " + imageLabel. + " "
 				// + image.getHeight());
 				try {
-					// System.out.println("Original clicked Point: " + p.x + " "
-					// + p.y);
+					// System.out.println("Original clicked Point: " + p.X + " "
+					// + p.Y);
 					// adjust clicked point
 					int deltaWidth = (imageLabel.getWidth() - imageWidth) / 2;
 					int deltaHeight = (imageLabel.getHeight() - imageHeight) / 2;

@@ -134,9 +134,9 @@ public class P03ColorFrame extends JFrame {
 		 * @param g
 		 *            the graphics where we should draw the lines
 		 * @param dimX
-		 *            x dimension of drawing area
+		 *            X dimension of drawing area
 		 * @param dimY
-		 *            y dimension of drawing area
+		 *            Y dimension of drawing area
 		 * @param startColor
 		 *            start color, should be at left
 		 * @param endColor

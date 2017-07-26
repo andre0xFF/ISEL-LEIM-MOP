@@ -66,13 +66,13 @@ public class P04BaralhadorDeNomes {
 //            "Vaimais umquejachega",
 //        };
 
-        System.out.printf("[x] Entered names:\n");
+        System.out.printf("[X] Entered names:\n");
 
         for(int i = 0; i < names.length; i++) {
             System.out.printf("[%d] %s\n", i, names[i]);
         }
 
-        System.out.printf("\n[x] Generated names:\n");
+        System.out.printf("\n[X] Generated names:\n");
 
         String[] shuffledNames = shuffleNames(names);
 

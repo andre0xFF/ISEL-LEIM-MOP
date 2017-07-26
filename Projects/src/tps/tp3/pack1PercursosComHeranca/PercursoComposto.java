@@ -1024,7 +1024,7 @@ public class PercursoComposto extends Percurso {
 			System.out.println("i - Testar RemoverNoFinalDesde");
 			System.out.println("j - Testar RemoverNoInicioAte");
 			System.out.println("k - Testes extra");
-			System.out.println("x - Terminar");
+			System.out.println("X - Terminar");
 
 			// ler escolha do utilizador
 			char car = teclado.nextLine().trim().charAt(0);
@@ -1066,7 +1066,7 @@ public class PercursoComposto extends Percurso {
 			case 'k':
 				testExtra();
 				break;
-			case 'x':
+			case 'X':
 				terminar = true;
 				System.out.println("Bye...");
 				break;
