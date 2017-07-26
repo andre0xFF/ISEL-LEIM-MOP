@@ -1,6 +1,7 @@
 package tps.tp4.game.aux;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class RingList<T> extends ArrayList<T> {
 
@@ -13,6 +14,16 @@ public class RingList<T> extends ArrayList<T> {
     public T next() {
         this.increment();
         return this.get();
+    }
+
+    public T get(boolean random) {
+        if (!random) {
+            return null;
+        }
+
+        Random r = new Random();
+        this.id = r.nextInt(super.size());
+        return this.get(id);
     }
 
     private void increment() {

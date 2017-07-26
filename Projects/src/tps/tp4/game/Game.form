@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="main_panel" layout-manager="GridLayoutManager" row-count="6" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="1624" height="1249"/>
+      <xy x="20" y="20" width="1824" height="1249"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -18,7 +18,7 @@
         <border type="none"/>
         <children/>
       </toolbar>
-      <grid id="ec636" binding="panel_player_1" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="ec636" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -27,12 +27,27 @@
           </grid>
         </constraints>
         <properties>
-          <enabled value="false"/>
+          <enabled value="true"/>
         </properties>
         <border type="none" title="Player #1"/>
-        <children/>
+        <children>
+          <component id="d9a5b" class="tps.tp4.game.Player" binding="player1">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1291450"/>
+              <enabled value="false"/>
+            </properties>
+          </component>
+          <vspacer id="52bed">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+        </children>
       </grid>
-      <grid id="1e2c7" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="1e2c7" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="1" column="2" row-span="5" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -53,12 +68,20 @@
           </component>
           <vspacer id="691ad">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
+          <component id="46fc8" class="javax.swing.JButton" binding="btn_next">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Next"/>
+            </properties>
+          </component>
         </children>
       </grid>
-      <grid id="964c5" binding="panel_player_2" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="964c5" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -67,12 +90,27 @@
           </grid>
         </constraints>
         <properties>
-          <enabled value="false"/>
+          <enabled value="true"/>
         </properties>
         <border type="none" title="Player #2"/>
-        <children/>
+        <children>
+          <component id="8c8aa" class="tps.tp4.game.Player" binding="player2">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-12833556"/>
+              <enabled value="false"/>
+            </properties>
+          </component>
+          <vspacer id="d026f">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+        </children>
       </grid>
-      <grid id="132ff" binding="panel_player_3" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="132ff" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -81,12 +119,27 @@
           </grid>
         </constraints>
         <properties>
-          <enabled value="false"/>
+          <enabled value="true"/>
         </properties>
         <border type="none" title="Player #3"/>
-        <children/>
+        <children>
+          <component id="688c1" class="tps.tp4.game.Player" binding="player3">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1251043"/>
+              <enabled value="false"/>
+            </properties>
+          </component>
+          <vspacer id="d7df9">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+        </children>
       </grid>
-      <grid id="84238" binding="panel_player_4" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="84238" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -95,12 +148,27 @@
           </grid>
         </constraints>
         <properties>
-          <enabled value="false"/>
+          <enabled value="true"/>
         </properties>
         <border type="none" title="Player #4"/>
-        <children/>
+        <children>
+          <component id="903f1" class="tps.tp4.game.Player" binding="player4">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-13702001"/>
+              <enabled value="false"/>
+            </properties>
+          </component>
+          <vspacer id="fb4bc">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+        </children>
       </grid>
-      <grid id="e2a8a" binding="panel_player_5" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="e2a8a" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -109,10 +177,25 @@
           </grid>
         </constraints>
         <properties>
-          <enabled value="false"/>
+          <enabled value="true"/>
         </properties>
         <border type="none" title="Player #5"/>
-        <children/>
+        <children>
+          <component id="ffa02" class="tps.tp4.game.Player" binding="player5">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-1306920"/>
+              <enabled value="false"/>
+            </properties>
+          </component>
+          <vspacer id="b9d03">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+        </children>
       </grid>
       <component id="6d1db" class="tps.tp4.game.Board" binding="board">
         <constraints>

@@ -89,6 +89,11 @@ public abstract class Tile implements ViewComponent {
     public boolean marker(Player player, Point point) {
         int size = Tile.SIZE / 3;
 
+        if (this.center_piece != null) {
+            boolean eval = this.center_piece.marker().set(player, point, Tile.SIZE / 3);
+            return true;
+        }
+
         for (Piece piece : this.pieces) {
             boolean eval = piece.marker().set(player, point, Tile.SIZE / 3);
 
@@ -117,6 +122,10 @@ public abstract class Tile implements ViewComponent {
     @Override
     public void draw(Graphics2D g) {
         g.drawImage(this.image, 0, 0, Tile.SIZE, Tile.SIZE, null);
+
+        if (this.center_piece != null) {
+            this.center_piece.draw(g);
+        }
 
         for (Piece piece: this.pieces) {
             piece.draw(g);

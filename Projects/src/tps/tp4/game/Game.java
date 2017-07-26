@@ -7,6 +7,8 @@ import tps.tp4.game.aux.RingList;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -16,26 +18,54 @@ public class Game {
     private JPanel main_panel;
 
     public static final int MAX_PLAYERS = 5;
-    private JPanel panel_player_1;
-    private JPanel panel_player_2;
-    private JPanel panel_player_3;
-    private JPanel panel_player_4;
-    private JPanel panel_player_5;
 
-    private RingList<Player> players = new RingList<Player>() {{
-        add(new Player(Color.BLUE));
-        add(new Player(Color.RED));
-    }};
+    private Player player1;
+    private Player player2;
+    private Player player3;
+    private Player player4;
+    private Player player5;
+
+    private RingList<Player> players = new RingList<Player>();
 
     private Deck deck;
     private Board board;
+    private JButton btn_next;
+
 
     public Game() {
+        this.initialize(2);
         this.frame.setContentPane(main_panel);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.pack();
         this.listeners();
         this.frame.setVisible(true);
+        this.players.get(true);
+    }
+
+    private void initialize(int players) {
+        if (players > MAX_PLAYERS) {
+            players = MAX_PLAYERS;
+        }
+        if (players-- > 0) {
+            this.player1.setEnabled(true);
+            this.players.add(this.player1);
+        }
+        if (players-- > 0) {
+            this.player2.setEnabled(true);
+            this.players.add(this.player2);
+        }
+        if (players-- > 0) {
+            this.player3.setEnabled(true);
+            this.players.add(this.player3);
+        }
+        if (players-- > 0) {
+            this.player4.setEnabled(true);
+            this.players.add(this.player4);
+        }
+        if (players-- > 0) {
+            this.player5.setEnabled(true);
+            this.players.add(this.player5);
+        }
     }
 
     private void on_left_click(Point point) {
@@ -50,22 +80,26 @@ public class Game {
             return;
         }
 
-        boolean eval = this.board.tile(tile, point);
+        boolean eval = this.board.tile(tile, point, this.players.get());
 
         if (!eval) {
             return;
         }
 
         this.deck.next();
-        this.players.next();
     }
 
     private void on_right_click(Point point) {
-        boolean eval = this.board.marker(this.players.get(), point);
+        this.board.marker(this.players.get(), point);
+    }
+
+    private void on_middle_click(Point point) {
+        this.players.next();
     }
 
     private void on_game_over() {
         // TODO
+        this.board.end();
     }
 
     private void listeners() {
@@ -74,10 +108,18 @@ public class Game {
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     on_left_click(new Point(e.getX(), e.getY()));
-                }
-                else if (SwingUtilities.isRightMouseButton(e)) {
+                } else if (SwingUtilities.isRightMouseButton(e)) {
                     on_right_click(new Point(e.getX(), e.getY()));
+                } else if (SwingUtilities.isMiddleMouseButton(e)) {
+                    on_middle_click(new Point(e.getX(), e.getY()));
                 }
+            }
+        });
+
+        btn_next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                on_middle_click(null);
             }
         });
     }
@@ -101,39 +143,72 @@ public class Game {
         main_panel.setLayout(new GridLayoutManager(6, 3, new Insets(0, 0, 0, 0), -1, -1));
         final JToolBar toolBar1 = new JToolBar();
         main_panel.add(toolBar1, new GridConstraints(0, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 20), null, 0, false));
-        panel_player_1 = new JPanel();
-        panel_player_1.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel_player_1.setEnabled(false);
-        main_panel.add(panel_player_1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(200, 100), new Dimension(200, -1), null, 0, false));
-        panel_player_1.setBorder(BorderFactory.createTitledBorder("Player #1"));
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
-        main_panel.add(panel1, new GridConstraints(1, 2, 5, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(200, -1), new Dimension(200, -1), null, 0, false));
-        panel1.setBorder(BorderFactory.createTitledBorder("Deck"));
-        deck = new Deck();
-        panel1.add(deck, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(70, 70), null, null, 0, false));
+        panel1.setEnabled(true);
+        main_panel.add(panel1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(200, 100), new Dimension(200, -1), null, 0, false));
+        panel1.setBorder(BorderFactory.createTitledBorder("Player #1"));
+        player1 = new Player();
+        player1.setBackground(new Color(-1291450));
+        player1.setEnabled(false);
+        panel1.add(player1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
         panel1.add(spacer1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        panel_player_2 = new JPanel();
-        panel_player_2.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel_player_2.setEnabled(false);
-        main_panel.add(panel_player_2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(200, 100), new Dimension(200, -1), null, 0, false));
-        panel_player_2.setBorder(BorderFactory.createTitledBorder("Player #2"));
-        panel_player_3 = new JPanel();
-        panel_player_3.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel_player_3.setEnabled(false);
-        main_panel.add(panel_player_3, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(200, 100), new Dimension(200, -1), null, 0, false));
-        panel_player_3.setBorder(BorderFactory.createTitledBorder("Player #3"));
-        panel_player_4 = new JPanel();
-        panel_player_4.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel_player_4.setEnabled(false);
-        main_panel.add(panel_player_4, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(200, 100), new Dimension(200, -1), null, 0, false));
-        panel_player_4.setBorder(BorderFactory.createTitledBorder("Player #4"));
-        panel_player_5 = new JPanel();
-        panel_player_5.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel_player_5.setEnabled(false);
-        main_panel.add(panel_player_5, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(200, 100), new Dimension(200, -1), null, 0, false));
-        panel_player_5.setBorder(BorderFactory.createTitledBorder("Player #5"));
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
+        main_panel.add(panel2, new GridConstraints(1, 2, 5, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(200, -1), new Dimension(200, -1), null, 0, false));
+        panel2.setBorder(BorderFactory.createTitledBorder("Deck"));
+        deck = new Deck();
+        panel2.add(deck, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(70, 70), null, null, 0, false));
+        final Spacer spacer2 = new Spacer();
+        panel2.add(spacer2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        btn_next = new JButton();
+        btn_next.setText("Next");
+        panel2.add(btn_next, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JPanel panel3 = new JPanel();
+        panel3.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel3.setEnabled(true);
+        main_panel.add(panel3, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(200, 100), new Dimension(200, -1), null, 0, false));
+        panel3.setBorder(BorderFactory.createTitledBorder("Player #2"));
+        player2 = new Player();
+        player2.setBackground(new Color(-12833556));
+        player2.setEnabled(false);
+        panel3.add(player2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final Spacer spacer3 = new Spacer();
+        panel3.add(spacer3, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        final JPanel panel4 = new JPanel();
+        panel4.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel4.setEnabled(true);
+        main_panel.add(panel4, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(200, 100), new Dimension(200, -1), null, 0, false));
+        panel4.setBorder(BorderFactory.createTitledBorder("Player #3"));
+        player3 = new Player();
+        player3.setBackground(new Color(-1251043));
+        player3.setEnabled(false);
+        panel4.add(player3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final Spacer spacer4 = new Spacer();
+        panel4.add(spacer4, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        final JPanel panel5 = new JPanel();
+        panel5.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel5.setEnabled(true);
+        main_panel.add(panel5, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(200, 100), new Dimension(200, -1), null, 0, false));
+        panel5.setBorder(BorderFactory.createTitledBorder("Player #4"));
+        player4 = new Player();
+        player4.setBackground(new Color(-13702001));
+        player4.setEnabled(false);
+        panel5.add(player4, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final Spacer spacer5 = new Spacer();
+        panel5.add(spacer5, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        final JPanel panel6 = new JPanel();
+        panel6.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel6.setEnabled(true);
+        main_panel.add(panel6, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(200, 100), new Dimension(200, -1), null, 0, false));
+        panel6.setBorder(BorderFactory.createTitledBorder("Player #5"));
+        player5 = new Player();
+        player5.setBackground(new Color(-1306920));
+        player5.setEnabled(false);
+        panel6.add(player5, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final Spacer spacer6 = new Spacer();
+        panel6.add(spacer6, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         board = new Board();
         main_panel.add(board, new GridConstraints(1, 1, 5, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(1400, 980), null, 0, false));
     }
