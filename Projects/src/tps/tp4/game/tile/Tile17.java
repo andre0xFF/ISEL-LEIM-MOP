@@ -1,8 +1,6 @@
 package tps.tp4.game.tile;
 
-import tps.tp4.game.Marker;
 import tps.tp4.game.Tile;
-import tps.tp4.game.marker.*;
 import tps.tp4.game.piece.Castle;
 import tps.tp4.game.piece.Field;
 import tps.tp4.game.piece.Road;
@@ -15,11 +13,6 @@ public class Tile17 extends Tile {
                 new Field(),
                 new Road(),
                 new Road(),
-                new Marker[] {
-                        new NorthMarker(),
-                        new EastMarker(),
-                        new SouthWestMarker(),
-                },
                 3,
                 "Tile17_cfrr_x3.jpg"
         );

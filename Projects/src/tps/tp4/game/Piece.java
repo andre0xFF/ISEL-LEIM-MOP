@@ -1,13 +1,30 @@
 package tps.tp4.game;
 
-public abstract class Piece {
+import java.awt.*;
 
-    public final String symbol;
+public abstract class Piece implements ViewComponent {
+
+    public final char symbol;
     public final int value;
 
-    protected Piece(String symbol, int value) {
+    private Marker marker;
+
+    protected Piece(char symbol, int value) {
+        this(symbol, value, null);
+    }
+
+    protected Piece(char symbol, int value, Marker marker) {
         this.symbol = symbol;
         this.value = value;
+        this.marker = marker;
+    }
+
+    public Marker marker() {
+        return this.marker;
+    }
+
+    public void marker(Marker marker) {
+        this.marker = marker;
     }
 
     @Override
@@ -17,14 +34,22 @@ public abstract class Piece {
 
         Piece piece = (Piece) o;
 
-        if (value != piece.value) return false;
-        return symbol.equals(piece.symbol);
+        if (symbol != piece.symbol) return false;
+        return value == piece.value;
     }
 
     @Override
     public int hashCode() {
-        int result = symbol.hashCode();
+        int result = (int) symbol;
         result = 31 * result + value;
         return result;
     }
+
+    @Override
+    public void draw(Graphics2D g) {
+        this.marker.draw(g);
+    }
+
+    @Override
+    public void listeners() { }
 }

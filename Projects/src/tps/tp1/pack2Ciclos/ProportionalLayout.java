@@ -8,7 +8,7 @@ import java.awt.LayoutManager2;
 
 /**
  * Proportional layout - E' como um border Layout mas com proporcoes. Por
- * exemplo: a parte NORTH tem 20% de extensao vertical... Os componentes sao
+ * exemplo: a parte NORTH_PIECE tem 20% de extensao vertical... Os componentes sao
  * entao colocados de acordo com a proporcionalidade indicada. Este layout
  * considera os insets do container e pode adicionar seus insets que sao
  * proporcionais. Considera hgap e vgap, como pixels or proporcionais
@@ -208,7 +208,7 @@ public class ProportionalLayout implements LayoutManager2 {
 			west = comp;
 		} else {
 			throw new IllegalArgumentException(
-					"cannot add to layout: unknown constraint: " + name);
+					"cannot tile to layout: unknown constraint: " + name);
 		}
 
 	}
@@ -221,7 +221,7 @@ public class ProportionalLayout implements LayoutManager2 {
 			addLayoutComponent((String) constraints, comp);
 		} else {
 			throw new IllegalArgumentException(
-					"cannot add to layout: constraint must be a string (or null)");
+					"cannot tile to layout: constraint must be a string (or null)");
 		}
 	}
 
@@ -256,7 +256,7 @@ public class ProportionalLayout implements LayoutManager2 {
 		if (EAST.equals(constraints))
 			return east;
 		throw new IllegalArgumentException(
-				"cannot get component: unknown constraint: " + constraints);
+				"cannot tile component: unknown constraint: " + constraints);
 	}
 
 	public Component getLayoutComponent(Container target, Object constraints) {
@@ -273,12 +273,12 @@ public class ProportionalLayout implements LayoutManager2 {
 		// setSizes(parent);
 		if (center != null) {
 			dim = center.getPreferredSize();
-			System.out.println("prefered size of CENTER component -> " + dim);
+			System.out.println("prefered size of CENTER_PIECE component -> " + dim);
 			dim.width /= (1 - insetLeft - insetRight - zonesetLeft - zonesetRight);
 			dim.height /= (1 - insetTop - insetBottom - zonesetTop - zonesetBottom);
 		}
 
-		// Always add the container's insets!
+		// Always tile the container's insets!
 		Insets insets = parent.getInsets();
 		dim.width += insets.left + insets.right;
 		dim.height += insets.top + insets.bottom;
@@ -294,12 +294,12 @@ public class ProportionalLayout implements LayoutManager2 {
 		// setSizes(parent);
 		if (center != null) {
 			dim = center.getMinimumSize();
-			System.out.println("minimum size of CENTER component -> " + dim);
+			System.out.println("minimum size of CENTER_PIECE component -> " + dim);
 			dim.width /= (1 - insetLeft - insetRight - zonesetLeft - zonesetRight);
 			dim.height /= (1 - insetTop - insetBottom - zonesetTop - zonesetBottom);
 		}
 
-		// Always add the container's insets!
+		// Always tile the container's insets!
 		Insets insets = parent.getInsets();
 		dim.width += insets.left + insets.right;
 		dim.height += insets.top + insets.bottom;

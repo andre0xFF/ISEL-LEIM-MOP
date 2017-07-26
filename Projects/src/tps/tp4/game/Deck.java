@@ -44,7 +44,7 @@ public class Deck extends JComponent implements ViewComponent {
         ArrayList<Tile> clones = new ArrayList<>();
 
         for (Tile tile : this.tiles) {
-            int q = tile.QUANTITY;
+            int q = tile.EQUAL_TILES;
 
             for (int i = 1; i < q; i++) {
                 clones.add(tile.clone());
@@ -52,30 +52,30 @@ public class Deck extends JComponent implements ViewComponent {
         }
 
         this.tiles.addAll(clones);
-        this.up_tile = this.deal();
+        this.next();
 
         this.listeners();
         super.setVisible(true);
     }
 
-    private Tile deal() {
+    public Tile tile() {
+        return this.up_tile;
+    }
+
+    public void next() {
         if (this.tiles.size() == 0) {
-            return null;
+            this.up_tile = null;
+            return;
+        }
+
+        if (this.up_tile != null) {
+            this.tiles.remove(up_tile);
         }
 
         Random random = new Random();
         int id = random.nextInt(this.tiles.size());
-        Tile tile = this.tiles.get(id);
-        this.tiles.remove(tile);
-
-        return tile;
-    }
-
-    public Tile get() {
-        Tile tile = this.up_tile;
-        this.up_tile = this.deal();
+        this.up_tile = this.tiles.get(id);
         repaint();
-        return tile;
     }
 
     @Override

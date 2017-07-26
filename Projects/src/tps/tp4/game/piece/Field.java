@@ -1,8 +1,13 @@
 package tps.tp4.game.piece;
 
-public class Field extends EdgePiece {
+import tps.tp4.game.EdgePiece;
+import tps.tp4.game.Piece;
+
+public class Field extends Piece implements EdgePiece {
+
+    public static final char SYMBOL = 'F';
 
     public Field() {
-        super("f", 1);
+        super(SYMBOL, 1);
     }
 }

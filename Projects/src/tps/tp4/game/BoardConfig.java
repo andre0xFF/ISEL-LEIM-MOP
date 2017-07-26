@@ -56,13 +56,13 @@ public class BoardConfig extends JDialog {
     }
 
     private void onOK() {
-        // add your code here
+        // tile your code here
         dispose();
         return;
     }
 
     private void onCancel() {
-        // add your code here if necessary
+        // tile your code here if necessary
 
         dispose();
     }

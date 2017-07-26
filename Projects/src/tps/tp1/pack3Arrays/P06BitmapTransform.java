@@ -143,13 +143,13 @@ public class P06BitmapTransform {
 		// set frame size
 		frame.setSize(image.getWidth() + 50, image.getHeight() + 80);
 
-		// CENTER the frame
+		// CENTER_PIECE the frame
 		frame.setLocationRelativeTo(null);
 
 		// show the image inside a label
 		ImageIcon img = new ImageIcon(image);
 		JLabel label = new JLabel(img, JLabel.CENTER);
-		// add the label to frame
+		// tile the label to frame
 		frame.add(label);
 
 		// turn frame visible

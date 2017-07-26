@@ -118,7 +118,7 @@ public class CenterLayout extends BorderLayout {
 					c.setBounds(left, top, right - left, deltaY);
 					top += deltaY + vgap;
 				} else {
-					// there is not SOUTH component: NORTH components get up
+					// there is not SOUTH_PIECE component: NORTH_PIECE components get up
 					// free space
 					c.setBounds(left, top, right - left, bottom - top
 							- preferedSizeCenterComp.height - vgap);
@@ -134,7 +134,7 @@ public class CenterLayout extends BorderLayout {
 					c.setBounds(left, bottom - deltaY, right - left, deltaY);
 					bottom -= deltaY + vgap;
 				} else {
-					// there is not NORTH component: SOUTH components get up
+					// there is not NORTH_PIECE component: SOUTH_PIECE components get up
 					// free space
 					c.setBounds(left, preferedSizeCenterComp.height + vgap,
 							right - left, bottom - top
@@ -151,7 +151,7 @@ public class CenterLayout extends BorderLayout {
 					c.setBounds(left, top, deltaX, bottom - top);
 					left += deltaX + hgap;
 				} else {
-					// there is not EAST component: WEST components get up
+					// there is not EAST_PIECE component: WEST_PIECE components get up
 					// free space
 					c.setBounds(left, top, right - left
 							- preferedSizeCenterComp.width - hgap, bottom - top);
@@ -167,7 +167,7 @@ public class CenterLayout extends BorderLayout {
 					c.setBounds(right - deltaX, top, deltaX, bottom - top);
 					right -= deltaX + hgap;
 				} else {
-					// there is not WEST component: EAST components get up
+					// there is not WEST_PIECE component: EAST_PIECE components get up
 					// free space
 					c.setBounds(left + preferedSizeCenterComp.width + hgap,
 							top, right - preferedSizeCenterComp.width - hgap

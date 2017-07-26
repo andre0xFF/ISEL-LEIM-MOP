@@ -3,13 +3,12 @@ package tps.tp4.game;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import tps.tp4.game.aux.RingList;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Game {
 
@@ -23,8 +22,7 @@ public class Game {
     private JPanel panel_player_4;
     private JPanel panel_player_5;
 
-    private Player player;
-    private LinkedList<Player> players = new LinkedList<Player>() {{
+    private RingList<Player> players = new RingList<Player>() {{
         add(new Player(Color.BLUE));
         add(new Player(Color.RED));
     }};
@@ -38,8 +36,6 @@ public class Game {
         this.frame.pack();
         this.listeners();
         this.frame.setVisible(true);
-
-        this.player = this.players.element();
     }
 
     private void on_left_click(Point point) {
@@ -47,18 +43,25 @@ public class Game {
             return;
         }
 
-        Tile tile = deck.get();
+        Tile tile = deck.tile();
 
         if (tile == null) {
             on_game_over();
             return;
         }
 
-        board.add(tile, point);
+        boolean eval = this.board.tile(tile, point);
+
+        if (!eval) {
+            return;
+        }
+
+        this.deck.next();
+        this.players.next();
     }
 
     private void on_right_click(Point point) {
-        // TODO
+        boolean eval = this.board.marker(this.players.get(), point);
     }
 
     private void on_game_over() {
@@ -141,9 +144,4 @@ public class Game {
     public JComponent $$$getRootComponent$$$() {
         return main_panel;
     }
-}
-
-class Players extends ArrayList<Player> {
-
-
 }

@@ -15,10 +15,6 @@ public class Tile04 extends Tile {
                 new Castle(),
                 new Field(),
                 new Castle(),
-                new Marker[] {
-                        new CenterMarker(),
-                        new SouthMarker()
-                },
                 3,
                 "Tile04_ccfc_x3.jpg"
         );
