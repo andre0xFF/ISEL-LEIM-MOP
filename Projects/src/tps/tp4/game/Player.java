@@ -1,11 +1,12 @@
 package tps.tp4.game;
 
-import javax.swing.*;
 import java.awt.*;
 
-public class Player extends JPanel {
+public class Player {
 
-    public Color color() {
-        return super.getBackground();
+    public final Color COLOR;
+
+    public Player(Color color) {
+        this.COLOR = color;
     }
 }

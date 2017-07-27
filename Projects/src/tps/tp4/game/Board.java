@@ -1,38 +1,46 @@
 package tps.tp4.game;
 
+import tps.tp4.game.aux.RingList;
 import tps.tp4.game.tile.Tile20;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class Board extends JPanel implements ViewComponent {
 
-    private static final Tile INITIAL_TILE = new Tile20();
-    private static final int DEFAULT_LINES = 14;
-    private static final int DEFAULT_COLUMNS = 20;
-    private static final int MAX_PLAYERS_MARKERS = 8;
-    private static final int MAX_MARKERS = MAX_PLAYERS_MARKERS * 5;
+    public static final Tile INITIAL_TILE = new Tile20();
+    public static final int DEFAULT_LINES = 14;
+    public static final int DEFAULT_COLUMNS = 20;
+    public static final int MAX_PLAYERS = 5;
+    public static final int MAX_PLAYERS_MARKERS = 8;
+    public static final int MAX_MARKERS = MAX_PLAYERS_MARKERS * 5;
 
     private final int rows;
     private final int columns;
     private final Tile[][] tiles;
+
     private HashMap<Player, Integer> markers_count = new HashMap<>();
+    private RingList<Player> players = new RingList<>();
 
     private Tile last_tile;
     private Player last_player;
 
-    public Board() {
-        this(DEFAULT_LINES, DEFAULT_COLUMNS);
+    public Board(Collection players) {
+        this(DEFAULT_LINES, DEFAULT_COLUMNS, players);
     }
 
-    public Board(int rows, int columns) {
+    public Board(int rows, int columns, Collection players) {
         this.rows = rows;
         this.columns = columns;
 
         this.tiles = new Tile[this.rows][this.columns];
         this.tiles[this.rows / 2][this.columns / 2] = INITIAL_TILE;
+
+        this.players.addAll(players);
+        this.players.get(true);
     }
 
     @Override
@@ -41,9 +49,12 @@ public class Board extends JPanel implements ViewComponent {
         this.draw((Graphics2D) g);
     }
 
+    public RingList<Player> players() {
+        return this.players;
+    }
+
     @Override
     public void draw(Graphics2D g) {
-        int cc = 0;
         AffineTransform transform = g.getTransform();
 
         for (int l = 0; l < this.tiles.length; l++) {
@@ -64,14 +75,14 @@ public class Board extends JPanel implements ViewComponent {
         g.dispose();
     }
 
-    public boolean tile(Tile tile, Point point, Player player) {
+    public boolean tile(Tile tile, Point point) {
         int l = this.coordinates(point.y);
         int c = this.coordinates(point.x);
 
-        return this.tile(tile, l, c, player);
+        return this.tile(tile, l, c);
     }
 
-    public boolean tile(Tile tile, int row, int column, Player player) {
+    public boolean tile(Tile tile, int row, int column) {
         // Row outside of range
         if (row < 0 || row > this.tiles.length) {
             return false;
@@ -86,6 +97,8 @@ public class Board extends JPanel implements ViewComponent {
         if (!this.empty(row, column)) {
             return false;
         }
+
+        Player player = this.players.get();
 
         // A player can only play once
         if (this.last_player != null && this.last_player.equals(player)) {
@@ -144,7 +157,7 @@ public class Board extends JPanel implements ViewComponent {
         return MAX_PLAYERS_MARKERS;
     }
 
-    public boolean marker(Player player, Point point) {
+    public boolean marker(Point point) {
         // Can't place a marker more than once per play
         if (this.last_tile == null) {
             return false;
@@ -155,6 +168,7 @@ public class Board extends JPanel implements ViewComponent {
             return false;
         }
 
+        Player player = this.players().get();
         int count = this.markers_count(player);
 
         if (count == 0) {

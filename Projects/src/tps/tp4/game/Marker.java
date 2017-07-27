@@ -30,7 +30,7 @@ public abstract class Marker implements ViewComponent {
             return;
         }
 
-        g.setColor(this.player.color());
+        g.setColor(this.player.COLOR);
         g.fillRect(this.point.x, this.point.y, SIZE, SIZE);
     }
 
